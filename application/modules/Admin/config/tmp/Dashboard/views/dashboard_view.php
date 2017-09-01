@@ -33,19 +33,30 @@
 			    </a>
 		    	<a class="navbar-brand" href="#">ART DASHBOARD</a>
 			</div> 
-			<nav class="collapse navbar-collapse" id="filter-navbar"> 
-				<!--Tab Links-->
-				<ul class="nav navbar-nav navbar-left" id="main_tabs">
+			<nav class="collapse navbar-collapse" id="filter-navbar">
+				<ul class="nav navbar-nav navbar-right" id="main_tabs">
+					<li class="active"><a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
+		          	<li><a href="#trend" aria-controls="trend" role="tab" data-toggle="tab">Trend</a></li>
+		          	<li><a href="#county_subcounty" aria-controls="county_subcounty" role="tab" data-toggle="tab">County/Sub-County</a></li>
+		          	<li><a href="#facility" aria-controls="facility" role="tab" data-toggle="tab">Facility</a></li>
+		          	<li><a href="#partner" aria-controls="partner" role="tab" data-toggle="tab">Partner</a></li>
+		          	<li><a href="#adt" aria-controls="adt" role="tab" data-toggle="tab">ADT Sites</a></li>
+		          	<li><a href="#login" aria-controls="login" role="tab" data-toggle="tab" target="_blank" class="btn btn-success btn-sm">Login</a></li>
+				</ul> 
+				<!--Tab Links
+				<ul class="nav navbar-nav navbar-right" id="main_tabs">
 				  <li class="active"><a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">SUMMARY</a></li>
 		          <li><a href="#commodities" aria-controls="commodities" role="tab" data-toggle="tab">ARV/OI DRUGS</a></li>
 		          <li><a href="#patients" aria-controls="patients" role="tab" data-toggle="tab">ART PATIENT STATISTICS</a></li>
 		        </ul>
-		        <!--upload_link-->
+		        -->
+		        <!--upload_link
 				<div class="nav navbar-nav navbar-form navbar-right">
-					<a href="<?php echo base_url().'ftp';?>" target="_blank" class="btn btn-warning btn-md">
+					<a href="<?php //echo base_url().'ftp';?>" target="_blank" class="btn btn-warning btn-md">
 						<span class="glyphicon glyphicon-upload"></span>
 					</a>
 				</div>
+				-->
 			</nav> 
 		</div>
 	</div>

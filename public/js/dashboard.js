@@ -16,6 +16,7 @@ $(function() {
         LoadChart(chartID, chartURL, chartName, filters)
     });
     /*Tab Change Event*/
+    $("#filter_tab").val(tab)
     $("#main_tabs a").on("click", TabFilterHandler);
     /*Load Filters on Filter Modal Show Event*/
     $('#filterModal').on('show.bs.modal', LoadFilterHandler);
@@ -85,13 +86,13 @@ function TabFilterHandler(e){
     tab = filtername.replace('#', '')
 
     //Reset filter identifier
-    $("#filter_btn").attr('data-filter', '')
+    $("#filter_tab").val(tab)
 
     /*Load Charts*/
-    $.each(charts[tab], function(key, chartName) {
+    /*$.each(charts[tab], function(key, chartName) {
         chartID = '#'+chartName+'_chart'
         LoadChart(chartID, chartURL, chartName, filters)
-    });
+    });*/
 }
 
 function LoadFilterHandler(e){
