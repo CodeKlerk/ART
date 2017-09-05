@@ -16,5 +16,21 @@
 				</div>
 		 	</div>
 		</div>
+		<div class="row">
+		  	<div class="col-sm-12">
+		  		<!--facility_patient_distribution_table-->
+		    	<div class="chart-wrapper">
+					<div class="chart-title">
+						Facilities
+					</div>
+					<div class="chart-stage">
+						<div id="facility_patient_distribution_table"></div>
+					</div>
+					<div class="chart-notes">
+						Filtered By: <span class="facility_patient_distribution_heading"></span>
+					</div>
+				</div>
+		 	</div>
+		</div>
 	</div>
 </div>

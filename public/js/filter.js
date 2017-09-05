@@ -24,7 +24,6 @@ $(function() {
 
     /*Set year on filter*/
     $('.filter-year').on('click', function(){
-        $(this).addClass('active')
         $("#filter_year").val($(this).data('value'))
     });
 
@@ -32,5 +31,5 @@ $(function() {
     $('.filter-month').on('click', function(){
         $("#filter_month").val($(this).data('value'))
     });
-
+    
 });

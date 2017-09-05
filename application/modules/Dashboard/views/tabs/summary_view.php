@@ -16,5 +16,21 @@
 				</div>
 		 	</div>
 	    </div>
+	    <div class="row">
+		  	<div class="col-sm-12">
+		  		<!--national_mos_chart-->
+		    	<div class="chart-wrapper">
+					<div class="chart-title">
+						NATIONAL MONTHS OF STOCK (MOS) 
+					</div>
+					<div class="chart-stage">
+						<div id="national_mos_chart"></div>
+					</div>
+					<div class="chart-notes">
+						Filtered By: <span class="national_mos_heading"></span>
+					</div>
+				</div>
+		 	</div>
+	    </div>
     </div>
 </div>
