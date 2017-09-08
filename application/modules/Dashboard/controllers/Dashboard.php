@@ -42,7 +42,8 @@ class Dashboard extends MX_Controller {
 		$chartview = $this->config->item($chartname.'_chartview');
 		$has_drilldown = $this->config->item($chartname.'_has_drilldown');
 		//Get data
-		$main_data = $this->get_data($chartname, $selectedfilters);
+		$main_data = array('main' => array(), 'drilldown' => array(), 'columns' => array());
+		//$main_data = $this->get_data($chartname, $selectedfilters);
 		$data['chart_series_data'] = json_encode($main_data['main'], JSON_NUMERIC_CHECK);
 		if($has_drilldown){
 			$data['chart_drilldown_data'] = json_encode(@$main_data['drilldown'], JSON_NUMERIC_CHECK);
@@ -50,7 +51,7 @@ class Dashboard extends MX_Controller {
 			$data['chart_categories'] =  json_encode(@$main_data['columns'], JSON_NUMERIC_CHECK);
 		}
 		//Load chart
-		$this->load->view($chartview, $data);
+		//$this->load->view($chartview, $data);
 	}
 
 	public function get_data($chartname, $filters)

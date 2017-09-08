@@ -40,7 +40,7 @@
 				</li>
 	          	<li><a href="#adt_site" aria-controls="adt_site" role="tab" data-toggle="tab">ADT Sites</a></li>
 	          	<li>
-	          		<a href="<?php echo base_url().'admin'; ?>" target="_blank" class="btn btn-primary">
+	          		<a href="<?php echo base_url().'admin'; ?>" target="_blank" class="btn btn-success">
 	          			<span class="glyphicon glyphicon-log-in"></span> Login
 	          		</a>
 	          	</li>

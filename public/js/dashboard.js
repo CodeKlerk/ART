@@ -28,9 +28,7 @@ function LoadChart(divID, chartURL, chartName, selectedfilters){
     /*Load Spinner*/
     LoadSpinner(divID)
     /*Load Chart*/
-    $(divID).load(chartURL, {'name':chartName, 'selectedfilters': selectedfilters}, function(){
-        LoadHeading(chartName)
-    });
+    $(divID).load(chartURL, {'name':chartName, 'selectedfilters': selectedfilters});
 }
 
 function LoadSpinner(divID){

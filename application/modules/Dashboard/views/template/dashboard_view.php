@@ -26,8 +26,10 @@
 		<?php $this->load->view('tabs/subcounty_view'); ?>
 		<!--facility-tab-->
 		<?php $this->load->view('tabs/facility_view'); ?>
-		<!--partner-tab-->
-		<?php $this->load->view('tabs/partner_view'); ?>
+		<!--partner_summary-tab-->
+		<?php $this->load->view('tabs/partner_summary_view'); ?>
+		<!--partner_trend-tab-->
+		<?php $this->load->view('tabs/partner_trend_view'); ?>
 		<!--site-tab-->
 		<?php $this->load->view('tabs/adt_site_view'); ?>
 	</div>
