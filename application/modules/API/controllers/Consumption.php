@@ -22,19 +22,24 @@ class consumption extends \API\Libraries\REST_Controller  {
     }
 
     public function index_get()
-    {
-        // consumption from a data store e.g. database
-        $consumptions = $this->consumption_model->read();
+    {   
+        //Default parameters
+        $year = $this->uri->segment(3);
+        $month = $this->uri->segment(4);
+        $facility = (int) $this->uri->segment(5);
+        $drug = (int) $this->uri->segment(6);
 
-        $facility = (int) $this->get('facility');
-        $drug = (int) $this->get('drug');
-
+        //Conditions
         $conditions = array(
-            'period_year' => $this->get('year'),
-            'period_month' => $this->get('month'),
+            'period_year' => $year,
+            'period_month' => $month,
             'facility_id' => $facility,
             'drug_id' => $drug
         );
+        $conditions = array_filter($conditions, function($a) { return ($a !== 0); });
+
+        // consumption from a data store e.g. database
+        $consumptions = $this->consumption_model->read($conditions);
 
         // If parameters don't exist return all the consumption
         if ($facility <= 0 || $drug <= 0)
@@ -68,11 +73,11 @@ class consumption extends \API\Libraries\REST_Controller  {
 
             $consumption = NULL;
 
-            if (!empty($consumption))
+            if (!empty($consumptions))
             {      
-                foreach ($consumption as $key => $value)
+                foreach ($consumptions as $key => $value)
                 {   
-                    if ($value['id'] == $id)
+                    if ($value['period_year'] == $year && $value['period_month'] == $month && $value['facility_id'] == $facility && $value['drug_id'] == $drug)
                     {
                         $consumption = $value;
                     }
@@ -120,12 +125,12 @@ class consumption extends \API\Libraries\REST_Controller  {
 
     public function index_put()
     {   
-        $facility = (int) $this->get('facility');
-        $drug = (int) $this->get('drug');
+        $facility = (int) $this->uri->segment(5);
+        $drug = (int) $this->uri->segment(6);
 
         $conditions = array(
-            'period_year' => $this->get('year'),
-            'period_month' => $this->get('month'),
+            'period_year' => $this->uri->segment(3),
+            'period_month' => $this->uri->segment(4),
             'facility_id' => $facility,
             'drug_id' => $drug
         );
@@ -138,7 +143,7 @@ class consumption extends \API\Libraries\REST_Controller  {
         }
 
         $data = array(
-            'total' => $this->post('total')
+            'total' => $this->put('total')
         );
         $data = $this->consumption_model->update($conditions, $data);
         if($data['status'])
@@ -158,12 +163,12 @@ class consumption extends \API\Libraries\REST_Controller  {
 
     public function index_delete()
     {
-        $facility = (int) $this->get('facility');
-        $drug = (int) $this->get('drug');
+        $facility = (int) $this->uri->segment(5);
+        $drug = (int) $this->uri->segment(6);
 
         $conditions = array(
-            'period_year' => $this->get('year'),
-            'period_month' => $this->get('month'),
+            'period_year' => $this->uri->segment(3),
+            'period_month' => $this->uri->segment(4),
             'facility_id' => $facility,
             'drug_id' => $drug
         );

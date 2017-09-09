@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class consumption_model extends CI_Model {
 
-	public function read()
-	{
-		$query = $this->db->get('tbl_consumption');
+	public function read($conditions)
+	{	
+		$query = $this->db->get_where('tbl_consumption', $conditions);
 		return $query->result_array();
 	}
 
