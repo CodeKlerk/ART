@@ -13,40 +13,40 @@ require APPPATH . '/libraries/REST_Controller.php';
  * @license         MIT
  * @link            https://github.com/KevinMarete/ART
  */
-class Drug extends \API\Libraries\REST_Controller  {
+class Regimen extends \API\Libraries\REST_Controller  {
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('drug_model');
+        $this->load->model('regimen_model');
     }
 
     public function index_get()
     {
-        // drugs from a data store e.g. database
-        $drugs = $this->drug_model->read();
+        // regimens from a data store e.g. database
+        $regimens = $this->regimen_model->read();
 
         $id = $this->get('id');
 
-        // If the id parameter doesn't exist return all the drugs
+        // If the id parameter doesn't exist return all the regimens
         if ($id === NULL)
         {
-            // Check if the drugs data store contains drugs (in case the database result returns NULL)
-            if ($drugs)
+            // Check if the regimens data store contains regimens (in case the database result returns NULL)
+            if ($regimens)
             {
                 // Set the response and exit
-                $this->response($drugs, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->response($regimens, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 // Set the response and exit
                 $this->response([
                     'status' => FALSE,
-                    'message' => 'No drugs were found'
+                    'message' => 'No regimens were found'
                 ], \API\Libraries\REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
-        // Find and return a single record for a particular drug.
+        // Find and return a single record for a particular regimen.
         else {
             $id = (int) $id;
 
@@ -57,31 +57,31 @@ class Drug extends \API\Libraries\REST_Controller  {
                 $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
             }
 
-            // Get the drug from the array, using the id as key for retrieval.
+            // Get the regimen from the array, using the id as key for retrieval.
             // Usually a model is to be used for this.
 
-            $drug = NULL;
+            $regimen = NULL;
 
-            if (!empty($drugs))
+            if (!empty($regimens))
             {      
-                foreach ($drugs as $key => $value)
+                foreach ($regimens as $key => $value)
                 {   
                     if ($value['id'] == $id)
                     {
-                        $drug = $value;
+                        $regimen = $value;
                     }
                 }
             }
 
-            if (!empty($drug))
+            if (!empty($regimen))
             {
-                $this->set_response($drug, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->set_response($regimen, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 $this->set_response([
                     'status' => FALSE,
-                    'message' => 'drug could not be found'
+                    'message' => 'regimen could not be found'
                 ], \API\Libraries\REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
@@ -90,12 +90,14 @@ class Drug extends \API\Libraries\REST_Controller  {
     public function index_post()
     {   
         $data = array(
-            'strength' => $this->post('strength'),
-            'packsize' => $this->post('packsize'),
-            'generic_id' => $this->post('generic_id'),
-            'formulation_id' => $this->post('formulation_id')
+            'code' => $this->post('code'),
+            'name' => $this->post('name'),
+            'description' => $this->post('description'),
+            'category_id' => $this->post('category_id'),
+            'service_id' => $this->post('service_id'),
+            'line_id' => $this->post('line_id')
         );
-        $data = $this->drug_model->insert($data);
+        $data = $this->regimen_model->insert($data);
         if($data['status'])
         {
             unset($data['status']);
@@ -123,12 +125,14 @@ class Drug extends \API\Libraries\REST_Controller  {
         }
 
         $data = array(
-            'strength' => $this->put('strength'),
-            'packsize' => $this->put('packsize'),
-            'generic_id' => $this->put('generic_id'),
-            'formulation_id' => $this->put('formulation_id')
+            'code' => $this->put('code'),
+            'name' => $this->put('name'),
+            'description' => $this->put('description'),
+            'category_id' => $this->put('category_id'),
+            'service_id' => $this->put('service_id'),
+            'line_id' => $this->put('line_id')
         );
-        $data = $this->drug_model->update($id, $data);
+        $data = $this->regimen_model->update($id, $data);
         if($data['status'])
         {
             unset($data['status']);
@@ -155,7 +159,7 @@ class Drug extends \API\Libraries\REST_Controller  {
             $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
 
-        $data = $this->drug_model->delete($id);
+        $data = $this->regimen_model->delete($id);
         if($data['status'])
         {
             unset($data['status']);

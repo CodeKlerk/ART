@@ -13,7 +13,7 @@ require APPPATH . '/libraries/REST_Controller.php';
  * @license         MIT
  * @link            https://github.com/KevinMarete/ART
  */
-class consumption extends \API\Libraries\REST_Controller  {
+class Consumption extends \API\Libraries\REST_Controller  {
 
     function __construct()
     {
@@ -24,10 +24,10 @@ class consumption extends \API\Libraries\REST_Controller  {
     public function index_get()
     {   
         //Default parameters
-        $year = $this->uri->segment(3);
-        $month = $this->uri->segment(4);
-        $facility = (int) $this->uri->segment(5);
-        $drug = (int) $this->uri->segment(6);
+        $year = $this->get('year');
+        $month = $this->get('month');
+        $facility = (int) $this->get('facility');
+        $drug = (int) $this->get('drug');
 
         //Conditions
         $conditions = array(
@@ -36,7 +36,7 @@ class consumption extends \API\Libraries\REST_Controller  {
             'facility_id' => $facility,
             'drug_id' => $drug
         );
-        $conditions = array_filter($conditions, function($a) { return ($a !== 0); });
+        $conditions = array_filter($conditions);
 
         // consumption from a data store e.g. database
         $consumptions = $this->consumption_model->read($conditions);
@@ -61,7 +61,7 @@ class consumption extends \API\Libraries\REST_Controller  {
         }
         // Find and return a single record for a particular consumption.
         else {
-            // Validate the id.
+            // Validate the facility/drug.
             if ($facility <= 0 || $drug <= 0)
             {
                 // Invalid id, set the response and exit.
@@ -125,12 +125,12 @@ class consumption extends \API\Libraries\REST_Controller  {
 
     public function index_put()
     {   
-        $facility = (int) $this->uri->segment(5);
-        $drug = (int) $this->uri->segment(6);
+        $facility = (int) $this->get('facility');
+        $drug = (int) $this->get('drug');
 
         $conditions = array(
-            'period_year' => $this->uri->segment(3),
-            'period_month' => $this->uri->segment(4),
+            'period_year' => $this->get('year'),
+            'period_month' => $this->get('month'),
             'facility_id' => $facility,
             'drug_id' => $drug
         );
@@ -163,12 +163,12 @@ class consumption extends \API\Libraries\REST_Controller  {
 
     public function index_delete()
     {
-        $facility = (int) $this->uri->segment(5);
-        $drug = (int) $this->uri->segment(6);
+        $facility = (int) $this->get('facility');
+        $drug = (int) $this->get('drug');
 
         $conditions = array(
-            'period_year' => $this->uri->segment(3),
-            'period_month' => $this->uri->segment(4),
+            'period_year' => $this->get('year'),
+            'period_month' => $this->get('month'),
             'facility_id' => $facility,
             'drug_id' => $drug
         );

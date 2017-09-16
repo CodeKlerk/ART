@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Consumption_model extends CI_Model {
+class Viral_model extends CI_Model {
 
 	public function read($conditions)
-	{	
-		$query = $this->db->get_where('tbl_consumption', $conditions);
+	{
+		$query = $this->db->get_where('tbl_viral', $conditions);
 		return $query->result_array();
 	}
 
 	public function insert($data)
 	{	
-		$this->db->insert('tbl_consumption', $data);
+		$this->db->insert('tbl_viral',	$data);
 		$count = $this->db->affected_rows();
 		if($count > 0)
 		{
@@ -24,9 +24,9 @@ class Consumption_model extends CI_Model {
 		return $data;
 	}
 
-	public function update($conditions, $data)
+	public function update($test_id, $data)
 	{	
-		$this->db->update('tbl_consumption', $data, $conditions);
+		$this->db->update('tbl_viral', $data, array('test_id' => $test_id));
 		$count = $this->db->affected_rows();
 		if($count > 0)
 		{
@@ -39,9 +39,9 @@ class Consumption_model extends CI_Model {
 		return $data;
 	}
 
-	public function delete($conditions)
+	public function delete($test_id)
 	{	
-		$this->db->delete('tbl_consumption', $conditions); 
+		$this->db->delete('tbl_viral', array('test_id' => $test_id)); 
 		$count = $this->db->affected_rows();
 		if($count > 0)
 		{

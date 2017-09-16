@@ -13,75 +13,84 @@ require APPPATH . '/libraries/REST_Controller.php';
  * @license         MIT
  * @link            https://github.com/KevinMarete/ART
  */
-class Drug extends \API\Libraries\REST_Controller  {
+class Kemsa extends \API\Libraries\REST_Controller  {
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('drug_model');
+        $this->load->model('kemsa_model');
     }
 
     public function index_get()
-    {
-        // drugs from a data store e.g. database
-        $drugs = $this->drug_model->read();
+    {   
+        //Default parameters
+        $year = $this->get('year');
+        $month = $this->get('month');
+        $drug = (int) $this->get('drug');
 
-        $id = $this->get('id');
+        //Conditions
+        $conditions = array(
+            'period_year' => $year,
+            'period_month' => $month,
+            'drug_id' => $drug
+        );
+        $conditions = array_filter($conditions);
 
-        // If the id parameter doesn't exist return all the drugs
-        if ($id === NULL)
+        // kemsa from a data store e.g. database
+        $kemsas = $this->kemsa_model->read($conditions);
+
+        // If parameters don't exist return all the kemsa
+        if ($drug <= 0)
         {
-            // Check if the drugs data store contains drugs (in case the database result returns NULL)
-            if ($drugs)
+            // Check if the kemsa data store contains kemsa (in case the database result returns NULL)
+            if ($kemsas)
             {
                 // Set the response and exit
-                $this->response($drugs, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->response($kemsas, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 // Set the response and exit
                 $this->response([
                     'status' => FALSE,
-                    'message' => 'No drugs were found'
+                    'message' => 'No kemsa was found'
                 ], \API\Libraries\REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
-        // Find and return a single record for a particular drug.
+        // Find and return a single record for a particular kemsa.
         else {
-            $id = (int) $id;
-
             // Validate the id.
-            if ($id <= 0)
+            if ($drug <= 0)
             {
                 // Invalid id, set the response and exit.
                 $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
             }
 
-            // Get the drug from the array, using the id as key for retrieval.
+            // Get the kemsa from the array, using the id as key for retrieval.
             // Usually a model is to be used for this.
 
-            $drug = NULL;
+            $kemsa = NULL;
 
-            if (!empty($drugs))
+            if (!empty($kemsas))
             {      
-                foreach ($drugs as $key => $value)
+                foreach ($kemsas as $key => $value)
                 {   
-                    if ($value['id'] == $id)
+                    if ($value['period_year'] == $year && $value['period_month'] == $month && $value['drug_id'] == $drug)
                     {
-                        $drug = $value;
+                        $kemsa = $value;
                     }
                 }
             }
 
-            if (!empty($drug))
+            if (!empty($kemsa))
             {
-                $this->set_response($drug, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->set_response($kemsa, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 $this->set_response([
                     'status' => FALSE,
-                    'message' => 'drug could not be found'
+                    'message' => 'kemsa could not be found'
                 ], \API\Libraries\REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
@@ -90,12 +99,15 @@ class Drug extends \API\Libraries\REST_Controller  {
     public function index_post()
     {   
         $data = array(
-            'strength' => $this->post('strength'),
-            'packsize' => $this->post('packsize'),
-            'generic_id' => $this->post('generic_id'),
-            'formulation_id' => $this->post('formulation_id')
+            'issue_total' => $this->post('issue_total'),
+            'soh_total' => $this->post('soh_total'),
+            'supplier_total' => $this->post('supplier_total'),
+            'received_total' => $this->post('received_total'),
+            'period_year' => $this->post('period_year'),
+            'period_month' => $this->post('period_month'),
+            'drug_id' => $this->post('drug_id')
         );
-        $data = $this->drug_model->insert($data);
+        $data = $this->kemsa_model->insert($data);
         if($data['status'])
         {
             unset($data['status']);
@@ -113,22 +125,28 @@ class Drug extends \API\Libraries\REST_Controller  {
 
     public function index_put()
     {   
-        $id = (int) $this->get('id');
+        $drug = (int) $this->get('drug');
 
-        // Validate the id.
-        if ($id <= 0)
+        $conditions = array(
+            'period_year' => $this->get('year'),
+            'period_month' => $this->get('month'),
+            'drug_id' => $drug
+        );
+
+        // Validate drug.
+        if ($drug <= 0)
         {
             // Set the response and exit
             $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
 
         $data = array(
-            'strength' => $this->put('strength'),
-            'packsize' => $this->put('packsize'),
-            'generic_id' => $this->put('generic_id'),
-            'formulation_id' => $this->put('formulation_id')
+            'issue_total' => $this->put('issue_total'),
+            'soh_total' => $this->put('soh_total'),
+            'supplier_total' => $this->put('supplier_total'),
+            'received_total' => $this->put('received_total')
         );
-        $data = $this->drug_model->update($id, $data);
+        $data = $this->kemsa_model->update($conditions, $data);
         if($data['status'])
         {
             unset($data['status']);
@@ -146,16 +164,22 @@ class Drug extends \API\Libraries\REST_Controller  {
 
     public function index_delete()
     {
-        $id = (int) $this->get('id');
+        $drug = (int) $this->get('drug');
 
-        // Validate the id.
-        if ($id <= 0)
+        $conditions = array(
+            'period_year' => $this->get('year'),
+            'period_month' => $this->get('month'),
+            'drug_id' => $drug
+        );
+
+        // Validate drug.
+        if ($drug <= 0)
         {
             // Set the response and exit
             $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
 
-        $data = $this->drug_model->delete($id);
+        $data = $this->kemsa_model->delete($conditions);
         if($data['status'])
         {
             unset($data['status']);

@@ -26,7 +26,7 @@ class Generic extends \API\Libraries\REST_Controller  {
         // generics from a data store e.g. database
         $generics = $this->generic_model->read();
 
-        $id = $this->uri->segment(3);
+        $id = $this->get('id');
 
         // If the id parameter doesn't exist return all the generics
         if ($id === NULL)
@@ -111,7 +111,7 @@ class Generic extends \API\Libraries\REST_Controller  {
 
     public function index_put()
     {   
-        $id = (int) $this->uri->segment(3);
+        $id = (int) $this->get('id');
 
         // Validate the id.
         if ($id <= 0)
@@ -142,7 +142,7 @@ class Generic extends \API\Libraries\REST_Controller  {
 
     public function index_delete()
     {
-        $id = (int) $this->uri->segment(3);
+        $id = (int) $this->get('id');
 
         // Validate the id.
         if ($id <= 0)

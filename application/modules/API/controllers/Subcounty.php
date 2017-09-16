@@ -13,40 +13,49 @@ require APPPATH . '/libraries/REST_Controller.php';
  * @license         MIT
  * @link            https://github.com/KevinMarete/ART
  */
-class Drug extends \API\Libraries\REST_Controller  {
+class Subcounty extends \API\Libraries\REST_Controller  {
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('drug_model');
+        $this->load->model('subcounty_model');
     }
 
     public function index_get()
     {
-        // drugs from a data store e.g. database
-        $drugs = $this->drug_model->read();
-
+        //Default parameters
         $id = $this->get('id');
+        $county = $this->get('county');
 
-        // If the id parameter doesn't exist return all the drugs
+        //Conditions
+        $conditions = array(
+            'id' => $id,
+            'county_id' => $county
+        );
+        $conditions = array_filter($conditions);
+
+        //Subcounties from a data store e.g. database
+        $subcounties = $this->subcounty_model->read($conditions);
+
+        //If the id parameter doesn't exist return all the subcounties
         if ($id === NULL)
         {
-            // Check if the drugs data store contains drugs (in case the database result returns NULL)
-            if ($drugs)
+            //Check if the subcounties data store contains subcounties (in case the database result returns NULL)
+            if ($subcounties)
             {
-                // Set the response and exit
-                $this->response($drugs, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                //Set the response and exit
+                $this->response($subcounties, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 // Set the response and exit
                 $this->response([
                     'status' => FALSE,
-                    'message' => 'No drugs were found'
+                    'message' => 'No subcounties were found'
                 ], \API\Libraries\REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
-        // Find and return a single record for a particular drug.
+        // Find and return a single record for a particular subcounty.
         else {
             $id = (int) $id;
 
@@ -57,31 +66,31 @@ class Drug extends \API\Libraries\REST_Controller  {
                 $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
             }
 
-            // Get the drug from the array, using the id as key for retrieval.
+            // Get the subcounty from the array, using the id as key for retrieval.
             // Usually a model is to be used for this.
 
-            $drug = NULL;
+            $subcounty = NULL;
 
-            if (!empty($drugs))
+            if (!empty($subcounties))
             {      
-                foreach ($drugs as $key => $value)
+                foreach ($subcounties as $key => $value)
                 {   
                     if ($value['id'] == $id)
                     {
-                        $drug = $value;
+                        $subcounty = $value;
                     }
                 }
             }
 
-            if (!empty($drug))
+            if (!empty($subcounty))
             {
-                $this->set_response($drug, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->set_response($subcounty, \API\Libraries\REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 $this->set_response([
                     'status' => FALSE,
-                    'message' => 'drug could not be found'
+                    'message' => 'subcounty could not be found'
                 ], \API\Libraries\REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
@@ -90,12 +99,10 @@ class Drug extends \API\Libraries\REST_Controller  {
     public function index_post()
     {   
         $data = array(
-            'strength' => $this->post('strength'),
-            'packsize' => $this->post('packsize'),
-            'generic_id' => $this->post('generic_id'),
-            'formulation_id' => $this->post('formulation_id')
+            'name' => $this->post('name'),
+            'county_id' => $this->post('county_id')
         );
-        $data = $this->drug_model->insert($data);
+        $data = $this->subcounty_model->insert($data);
         if($data['status'])
         {
             unset($data['status']);
@@ -123,12 +130,10 @@ class Drug extends \API\Libraries\REST_Controller  {
         }
 
         $data = array(
-            'strength' => $this->put('strength'),
-            'packsize' => $this->put('packsize'),
-            'generic_id' => $this->put('generic_id'),
-            'formulation_id' => $this->put('formulation_id')
+            'name' => $this->put('name'),
+            'county_id' => $this->put('county_id')
         );
-        $data = $this->drug_model->update($id, $data);
+        $data = $this->subcounty_model->update($id, $data);
         if($data['status'])
         {
             unset($data['status']);
@@ -155,7 +160,7 @@ class Drug extends \API\Libraries\REST_Controller  {
             $this->response(NULL, \API\Libraries\REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
 
-        $data = $this->drug_model->delete($id);
+        $data = $this->subcounty_model->delete($id);
         if($data['status'])
         {
             unset($data['status']);
