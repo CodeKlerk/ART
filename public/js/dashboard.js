@@ -42,13 +42,13 @@ function TabFilterHandler(e){
     var filtername = $(e.target).attr('href')
     var filters = {}
     tab = filtername.replace('#', '')
-
-    //Reset filter identifier
-    $("#filter_tab").val(tab)
-
-    /*Load Charts*/
-    $.each(charts[tab], function(key, chartName) {
-        chartID = '#'+chartName
-        LoadChart(chartID, chartURL, chartName, filters)
-    });
+    if(tab){
+        //Reset filter identifier
+        $("#filter_tab").val(tab)
+        /*Load Charts*/
+        $.each(charts[tab], function(key, chartName) {
+            chartID = '#'+chartName
+            LoadChart(chartID, chartURL, chartName, filters)
+        });
+    }
 }

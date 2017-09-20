@@ -12,5 +12,7 @@
 <script type="text/javascript" src="<?php echo base_url().'public/lib/bootstrap-multiselect/js/bootstrap-multiselect.js';?>"></script>
 <!--disable_back_button-->
 <script type="text/javascript" src="<?php echo base_url().'public/js/disable_back_button.js';?>"></script>
+<!--datatables-->
+<script type="text/javascript" src="<?php echo base_url().'public/lib/datatables/js/datatables.min.js';?>"></script>
 <!--dashboard-->
 <script type="text/javascript" src="<?php echo base_url().'public/js/dashboard.js';?>"></script>

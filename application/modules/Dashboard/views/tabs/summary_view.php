@@ -5,7 +5,7 @@
 		  		<!--patient_scaleup_chart-->
 		    	<div class="chart-wrapper">
 					<div class="chart-title">
-						Patient Scaleup Trend
+						PATIENT SCALEUP TREND
 					</div>
 					<div class="chart-stage">
 						<div id="patient_scaleup_chart"></div>

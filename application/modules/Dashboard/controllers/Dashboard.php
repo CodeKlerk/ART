@@ -43,7 +43,7 @@ class Dashboard extends MX_Controller {
 		$has_drilldown = $this->config->item($chartname.'_has_drilldown');
 		//Get data
 		$main_data = array('main' => array(), 'drilldown' => array(), 'columns' => array());
-		//$main_data = $this->get_data($chartname, $selectedfilters);
+		$main_data = $this->get_data($chartname, $selectedfilters);
 		$data['chart_series_data'] = json_encode($main_data['main'], JSON_NUMERIC_CHECK);
 		if($has_drilldown){
 			$data['chart_drilldown_data'] = json_encode(@$main_data['drilldown'], JSON_NUMERIC_CHECK);
@@ -51,29 +51,29 @@ class Dashboard extends MX_Controller {
 			$data['chart_categories'] =  json_encode(@$main_data['columns'], JSON_NUMERIC_CHECK);
 		}
 		//Load chart
-		//$this->load->view($chartview, $data);
+		$this->load->view($chartview, $data);
 	}
 
 	public function get_data($chartname, $filters)
 	{	
-		if($chartname == 'patient_by_regimen'){
-			$main_data = $this->dashboard_model->get_patient_regimen_numbers($filters);
-		}else if($chartname == 'stock_status'){
-			$main_data = $this->dashboard_model->get_national_mos($filters);
-		}else if($chartname == 'national_mos'){
-			$main_data = $this->dashboard_model->get_national_mos($filters);
-		}else if($chartname == 'drug_consumption_trend'){
-			$main_data = $this->dashboard_model->get_drug_consumption_trend($filters);
-		}else if($chartname == 'patient_in_care'){
-			$main_data = $this->dashboard_model->get_patient_in_care($filters);
-		}else if($chartname == 'patient_regimen_category'){
-			$main_data = $this->dashboard_model->get_patient_regimen_category($filters);
-		}else if($chartname == 'nrti_drugs_in_regimen'){
-			$main_data = $this->dashboard_model->get_nrti_drugs_in_regimen($filters);
-		}else if($chartname == 'nnrti_drugs_in_regimen'){
-			$main_data = $this->dashboard_model->get_nnrti_drugs_in_regimen($filters);
-		}else if($chartname == 'patient_scaleup'){
+		if($chartname == 'patient_scaleup_chart'){
 			$main_data = $this->dashboard_model->get_patient_scaleup($filters);
+		}else if($chartname == 'national_mos_chart'){
+			$main_data = $this->dashboard_model->get_national_mos($filters);
+		}else if($chartname == 'commodity_consumption_chart'){
+			$main_data = $this->dashboard_model->get_commodity_consumption($filters);
+		}else if($chartname == 'county_patient_distribution_chart'){
+			$main_data = $this->dashboard_model->get_county_patient_distribution($filters);
+		}else if($chartname == 'county_patient_distribution_table'){
+			$main_data = $this->dashboard_model->get_county_patient_distribution_numbers($filters);
+		}else if($chartname == 'subcounty_patient_distribution_chart'){
+			$main_data = $this->dashboard_model->get_subcounty_patient_distribution($filters);
+		}else if($chartname == 'subcounty_patient_distribution_table'){
+			$main_data = $this->dashboard_model->get_subcounty_patient_distribution_numbers($filters);
+		}else if($chartname == 'facility_patient_distribution_chart'){
+			$main_data = $this->dashboard_model->get_facility_patient_distribution($filters);
+		}else if($chartname == 'facility_patient_distribution_table'){
+			$main_data = $this->dashboard_model->get_facility_patient_distribution_numbers($filters);
 		}
 		return $main_data;
 	}
