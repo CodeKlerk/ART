@@ -1,13 +1,26 @@
 <?php
 	$dyn_table = "<table class='table table-bordered table-condensed table-hover table-striped distribution_table'>";
-	$dyn_table .= "<thead><tr><th>Name</th><th>Sites</th><th>Patients</th><th>Adults</th><th>Paediatrics</th></tr></thead><tbody>";
+	$thead = "<thead><tr>";
 	$table_data = json_decode($chart_series_data, TRUE);
-	$previous_heading = "";
-
+	$count = 0;
+	$tbody = "<tbody>";
 	foreach ($table_data as $row_data) {
-		$dyn_table .= "<tr><td>".$row_data['name']."</td><td>".number_format($row_data['sites'])."</td><td>".number_format($row_data['total'])."</td><td>".number_format($row_data['adult'])."</td><td>".number_format($row_data['paed'])."</td></tr>";
+		$tbody .= "<tr>";
+		foreach ($row_data as $key => $value) {
+			//Header
+			if($count == 0){
+				$thead .= "<th>".$key."</th>";
+			}
+			$tbody .= "<td>".$value."</td>";
+		}
+		$tbody .= "</tr>";
+		$count++;
 	}
-	$dyn_table .= "</tbody></table>";
+	$thead .= "</tr></thead>";
+	$tbody .= "</tbody>";
+	$dyn_table .= $thead;
+	$dyn_table .= $tbody;
+	$dyn_table .= "</table>";
  	echo $dyn_table;
 ?>
 

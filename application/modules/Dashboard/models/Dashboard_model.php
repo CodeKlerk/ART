@@ -212,5 +212,88 @@ class Dashboard_model extends CI_Model {
 		$query = $this->db->get('dsh_patient');
 		return array('main' => $query->result_array(), 'columns' => $columns);
 	}
+
+	public function get_partner_patient_distribution($filters){
+		$columns = array();
+
+		$this->db->select("CONCAT(UCASE(SUBSTRING(partner, 1, 1)),LOWER(SUBSTRING(partner, 2))) name, SUM(total) y", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->group_by('name');
+		$this->db->order_by('y', 'DESC');
+		$this->db->limit(30);
+		$query = $this->db->get('dsh_patient');
+		$results = $query->result_array();
+
+		foreach ($results as $result) {
+			array_push($columns, $result['name']);
+		}
+
+		return array('main' => $results, 'columns' => $columns);
+	}
+
+	public function get_partner_patient_distribution_numbers($filters){
+		$columns = array();
+
+		$this->db->select("CONCAT(UCASE(SUBSTRING(partner, 1, 1)),LOWER(SUBSTRING(partner, 2))) name, 1 sites, SUM(IF(age_category='adult', total, NULL)) adult, SUM(IF(age_category='paed', total, NULL)) paed, SUM(total) total", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->group_by('name');
+		$this->db->order_by('total', 'DESC');
+		$query = $this->db->get('dsh_patient');
+		return array('main' => $query->result_array(), 'columns' => $columns);
+	}
+
+	public function get_adt_site_distribution($filters){
+		$columns = array();
+
+		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, SUM(case when installed = 'yes' then 1 else 0 end) installed, SUM(case when installed = 'no' then 1 else 0 end) not_yet", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->group_by('name');
+		$query = $this->db->get('dsh_site');
+		$results = $query->result_array();
+
+		$data = array();
+		$installed = array();
+		$not_yet = array();
+		foreach ($results as $result) {
+			array_push($columns, $result['name']);
+			foreach ($result as $key => $value) {
+				if($key == 'installed'){
+					$installed[] = $value;
+				}else if($key == 'not_yet'){
+					$not_yet[] = $value;
+				}
+			}
+		}
+		$data[] = array('name' => 'installed', 'data' => $installed);
+		$data[] = array('name' => 'not_yet', 'data' => $not_yet);
+
+		return array('main' => $data, 'columns' => $columns);
+	}
+
+	public function get_adt_site_distribution_numbers($filters){
+		$columns = array();
+
+		$this->db->select("facility, county, subcounty, partner, installed, version, internet, backup, active_patients", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->order_by('active_patients', 'DESC');
+		$query = $this->db->get('dsh_site');
+		return array('main' => $query->result_array(), 'columns' => $columns);
+	}
 	
 }

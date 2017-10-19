@@ -135,3 +135,53 @@ $config['facility_patient_distribution_table_filters_default'] = array(
 	'data_year' => array('2017'), 
 	'data_month' => array('Jun')
 );
+
+/*partner_patient_distribution_chart*/
+$config['partner_patient_distribution_chart_chartview'] = 'charts/column_view';
+$config['partner_patient_distribution_chart_title'] = 'Partner Patient Numbers';
+$config['partner_patient_distribution_chart_yaxis_title'] = 'No. of Patients';
+$config['partner_patient_distribution_chart_source'] = 'Source: www.nascop.org';
+$config['partner_patient_distribution_chart_has_drilldown'] = FALSE;
+$config['partner_patient_distribution_chart_xaxis_title'] = 'Partner';
+$config['partner_patient_distribution_chart_view_name'] = 'dsh_patient';
+$config['partner_patient_distribution_chart_filters'] = array('data_year', 'data_month', 'regimen_category', 'regimen');
+$config['partner_patient_distribution_chart_filters_default'] = array(
+	'data_year' => array('2017'), 
+	'data_month' => array('Jun')
+);
+
+/*partner_patient_distribution_table*/
+$config['partner_patient_distribution_table_chartview'] = 'charts/table_view';
+$config['partner_patient_distribution_table_title'] = 'Partner Patient Numbers';
+$config['partner_patient_distribution_table_yaxis_title'] = 'No. of Patients';
+$config['partner_patient_distribution_table_source'] = 'Source: www.nascop.org';
+$config['partner_patient_distribution_table_has_drilldown'] = FALSE;
+$config['partner_patient_distribution_table_xaxis_title'] = 'Partner';
+$config['partner_patient_distribution_table_view_name'] = 'dsh_patient';
+$config['partner_patient_distribution_table_filters'] = array('data_year', 'data_month', 'regimen_category', 'regimen');
+$config['partner_patient_distribution_table_filters_default'] = array(
+	'data_year' => array('2017'), 
+	'data_month' => array('Jun')
+);
+
+/*adt_site_distribution_chart*/
+$config['adt_site_distribution_chart_chartview'] = 'charts/stacked_column_view';
+$config['adt_site_distribution_chart_title'] = 'ADT Site Numbers';
+$config['adt_site_distribution_chart_yaxis_title'] = 'No. of Sites';
+$config['adt_site_distribution_chart_source'] = 'Source: www.nascop.org';
+$config['adt_site_distribution_chart_has_drilldown'] = FALSE;
+$config['adt_site_distribution_chart_xaxis_title'] = 'Sites';
+$config['adt_site_distribution_chart_view_name'] = 'dsh_site';
+$config['adt_site_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
+$config['adt_site_distribution_chart_filters_default'] = array();
+
+/*adt_site_distribution_table*/
+$config['adt_site_distribution_table_chartview'] = 'charts/table_view';
+$config['adt_site_distribution_table_title'] = 'ADT Site Numbers';
+$config['adt_site_distribution_table_yaxis_title'] = 'No. of Sites';
+$config['adt_site_distribution_table_source'] = 'Source: www.nascop.org';
+$config['adt_site_distribution_table_has_drilldown'] = FALSE;
+$config['adt_site_distribution_table_xaxis_title'] = 'Sites';
+$config['adt_site_distribution_table_view_name'] = 'dsh_site';
+$config['adt_site_distribution_table_filters'] = array('partner', 'facility', 'internet', 'backup');
+$config['adt_site_distribution_table_filters_default'] = array();

@@ -5,13 +5,29 @@
 		  		<!--partner_summary_chart-->
 		    	<div class="chart-wrapper">
 					<div class="chart-title">
-						Partner Trends
+						Facility Patient Distribution
 					</div>
 					<div class="chart-stage">
-						<div id="partner_summary_chart"></div>
+						<div id="partner_patient_distribution_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Filtered By: <span class="partner_summary_heading"></span>
+						Filtered By: <span class="partner_patient_distribution_heading"></span>
+					</div>
+				</div>
+		 	</div>
+		</div>
+		<div class="row">
+		  	<div class="col-sm-12">
+		  		<!--facility_patient_distribution_table-->
+		    	<div class="chart-wrapper">
+					<div class="chart-title">
+						Partners
+					</div>
+					<div class="chart-stage">
+						<div id="partner_patient_distribution_table"></div>
+					</div>
+					<div class="chart-notes">
+						Filtered By: <span class="partner_patient_distribution_heading"></span>
 					</div>
 				</div>
 		 	</div>

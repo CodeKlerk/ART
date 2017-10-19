@@ -74,6 +74,14 @@ class Dashboard extends MX_Controller {
 			$main_data = $this->dashboard_model->get_facility_patient_distribution($filters);
 		}else if($chartname == 'facility_patient_distribution_table'){
 			$main_data = $this->dashboard_model->get_facility_patient_distribution_numbers($filters);
+		}else if($chartname == 'partner_patient_distribution_chart'){
+			$main_data = $this->dashboard_model->get_partner_patient_distribution($filters);
+		}else if($chartname == 'partner_patient_distribution_table'){
+			$main_data = $this->dashboard_model->get_partner_patient_distribution_numbers($filters);
+		}else if($chartname == 'adt_site_distribution_chart'){
+			$main_data = $this->dashboard_model->get_adt_site_distribution($filters);
+		}else if($chartname == 'adt_site_distribution_table'){
+			$main_data = $this->dashboard_model->get_adt_site_distribution_numbers($filters);
 		}
 		return $main_data;
 	}

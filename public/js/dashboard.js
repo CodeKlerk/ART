@@ -8,8 +8,7 @@ charts['trend'] = ['commodity_consumption_chart']
 charts['county'] = ['county_patient_distribution_chart', 'county_patient_distribution_table']
 charts['subcounty'] = ['subcounty_patient_distribution_chart', 'subcounty_patient_distribution_table']
 charts['facility'] = ['facility_patient_distribution_chart', 'facility_patient_distribution_table']
-charts['partner_summary'] = ['partner_summary_chart']
-charts['partner_trend'] = ['partner_trend_chart']
+charts['partner_summary'] = ['partner_patient_distribution_chart', 'partner_patient_distribution_table']
 charts['adt_site'] = ['adt_site_distribution_chart', 'adt_site_distribution_table']
 
 $(function() {

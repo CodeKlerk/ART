@@ -35,7 +35,6 @@
 	          		</a>
 	          		<ul class="dropdown-menu">
 						<li><a href="#partner_summary" aria-controls="partner" role="tab" data-toggle="tab">Summary</a></li>
-						<li><a href="#partner_trend" aria-controls="partner" role="tab" data-toggle="tab">Trends</a></li>
 					</ul>
 				</li>
 	          	<li><a href="#adt_site" aria-controls="adt_site" role="tab" data-toggle="tab">ADT Sites</a></li>

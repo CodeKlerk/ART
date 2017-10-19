@@ -11,7 +11,7 @@
 						<div id="adt_site_distribution_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Filtered By: <span class="county_patient_distribution_heading"></span>
+						Filtered By: <span class="adt_site_distribution_heading"></span>
 					</div>
 				</div>
 		 	</div>
@@ -21,7 +21,7 @@
 		  		<!--adt_site_distribution_table-->
 		    	<div class="chart-wrapper">
 					<div class="chart-title">
-						County
+						ADT Sites
 					</div>
 					<div class="chart-stage">
 						<div id="adt_site_distribution_table"></div>
