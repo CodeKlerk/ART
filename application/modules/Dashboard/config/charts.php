@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*patient_scaleup_chart*/
-$config['patient_scaleup_chart_chartview'] = 'charts/combined_view';
+$config['patient_scaleup_chart_chartview'] = 'charts/stacked_column_view';
 $config['patient_scaleup_chart_title'] = 'Patient Scaleup Trend';
 $config['patient_scaleup_chart_yaxis_title'] = 'No. of Patients';
 $config['patient_scaleup_chart_source'] = 'Source: www.nascop.org';

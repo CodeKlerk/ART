@@ -38,7 +38,7 @@
                     text: '<?php echo $chart_yaxis_title; ?>'
                 },
                 stackLabels: {
-                    enabled: true,
+                    enabled: false,
                     style: {
                         fontWeight: 'bold',
                         color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
@@ -64,7 +64,7 @@
                 column: {
                     stacking: 'normal',
                     dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
                     }
                 }

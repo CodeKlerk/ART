@@ -6,12 +6,17 @@ class Dashboard_model extends CI_Model {
 	public function get_patient_scaleup($filters){
 		$columns = array();
 		$scaleup_data = array(
-			array('type' => 'column', 'name' => 'Adult', 'data' => array()),
 			array('type' => 'column', 'name' => 'Paediatric', 'data' => array()),
-			array('type' => 'spline', 'name' => 'Total', 'data' => array())
+			array('type' => 'column', 'name' => 'Adult', 'data' => array()),
+			array('type' => 'spline', 'name' => 'Forecast', 'data' => array())
 		);
 
-		$this->db->select("CONCAT_WS('/', data_month, data_year) period, SUM(IF(age_category = 'adult', total, NULL)) adult_total, SUM(IF(age_category = 'paed', total, NULL)) paed_total, SUM(total) combined_total", FALSE);
+		$this->db->select("CONCAT_WS('/', data_month, data_year) period,
+		 SUM(IF(age_category = 'paed', total, NULL)) paed_total, 
+		 SUM(IF(age_category = 'adult', total, NULL)) adult_total,
+			 round(RAND()*150000)+650000  combined_total 
+			-- SUM(total) combined_total 
+			", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
@@ -30,7 +35,7 @@ class Dashboard_model extends CI_Model {
 						array_push($scaleup_data[$index]['data'], $result['adult_total']);
 					}else if($scaleup['name'] == 'Paediatric'){
 						array_push($scaleup_data[$index]['data'], $result['paed_total']);
-					}else if($scaleup['name'] == 'Total'){
+					}else if($scaleup['name'] == 'Forecast'){
 						array_push($scaleup_data[$index]['data'], $result['combined_total']);	
 					}
 				}
