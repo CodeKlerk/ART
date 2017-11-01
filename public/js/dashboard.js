@@ -10,6 +10,8 @@ charts['subcounty'] = ['subcounty_patient_distribution_chart', 'subcounty_patien
 charts['facility'] = ['facility_patient_distribution_chart', 'facility_patient_distribution_table']
 charts['partner_summary'] = ['partner_patient_distribution_chart', 'partner_patient_distribution_table']
 charts['adt_site'] = ['adt_site_distribution_chart', 'adt_site_distribution_table']
+charts['commodity'] = ['drug_summary_chart']
+
 
 $(function() {
     /*Load Charts*/
