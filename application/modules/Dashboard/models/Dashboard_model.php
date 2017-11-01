@@ -12,9 +12,9 @@ class Dashboard_model extends CI_Model {
 		);
 
 		$this->db->select("CONCAT_WS('/', data_month, data_year) period,
-		 SUM(IF(age_category = 'paed', total, NULL)) paed_total, 
-		 SUM(IF(age_category = 'adult', total, NULL)) adult_total,
-			 round(RAND()*150000)+650000  combined_total 
+			SUM(IF(age_category = 'paed', total, NULL)) paed_total, 
+			SUM(IF(age_category = 'adult', total, NULL)) adult_total,
+			round(RAND()*150000)+650000  combined_total 
 			-- SUM(total) combined_total 
 			", FALSE);
 		if(!empty($filters)){
@@ -258,13 +258,16 @@ class Dashboard_model extends CI_Model {
 	public function get_adt_site_distribution($filters){
 		$columns = array();
 
-		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, SUM(case when installed = 'yes' then 1 else 0 end) installed, SUM(case when installed = 'no' then 1 else 0 end) not_yet", FALSE);
+		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, 
+			SUM(case when installed = 'yes' then 1 else 0 end) installed, 
+			SUM(case when installed = 'no' then 1 else 0 end) not_yet", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
 			}
 		}
 		$this->db->group_by('name');
+		// $this->db->order_by('installed', 'DESC');
 		$query = $this->db->get('dsh_site');
 		$results = $query->result_array();
 
@@ -301,12 +304,39 @@ class Dashboard_model extends CI_Model {
 		return array('main' => $query->result_array(), 'columns' => $columns);
 	}
 
-	public function get_drug_summary($filters){
-		$columns = array();
 
-		$json = '{"main":[{"type":"column","name":"Paediatric","data":["72098","72622","72852","72957","75239","76129","77730","78112","78037","78083","78446","78739","78775","79082","79221","79812","80536","81088","81444"]},{"type":"column","name":"Adult","data":["805077","815679","813367","817185","825951","832314","841161","857762","863881","875937","896053","899337","907697","914550","922972","930310","932158","940401","950290"]},{"type":"spline","name":"Forecast","data":["721669","688272","773782","684692","779395","796940","767260","739500","730186","662713","794460","651354","746453","687297","720148","748715","786529","732920","724915"]}],"columns":["Jan\/2016","Feb\/2016","Mar\/2016","Apr\/2016","May\/2016","Jun\/2016","Jul\/2016","Aug\/2016","Sep\/2016","Oct\/2016","Nov\/2016","Dec\/2016","Jan\/2017","Feb\/2017","Mar\/2017","Apr\/2017","May\/2017","Jun\/2017","Jul\/2017"]}';
-		$results = json_decode($json, TRUE);
-		return $results;
+	public function get_top_commodities($filters){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("drug,sum(total) as total ", FALSE);
+		// if(!empty($filters)){
+		// 	foreach ($filters as $category => $filter) {
+		// 		$this->db->where_in($category, $filter);
+		// 	}
+		// }
+		$this->db->group_by('drug');
+		$this->db->order_by("total DESC");
+		$this->db->limit("20");
+		$query = $this->db->get('dsh_consumption');
+		$results = $query->result_array();
+
+		foreach ($results as $result) {
+			array_push($data, $result['total']);
+		}
+
+		foreach ($results as $result) {
+			array_push($columns, $result['drug']);
+		}
+
+		return array('main' =>  array(
+			array(
+				'type' => 'column', 
+				'name' => 'Drug',
+				'data' => $data
+			))
+		, 'columns' => $columns);
+
 	}
 	
 }
