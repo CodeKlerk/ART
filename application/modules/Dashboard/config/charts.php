@@ -190,12 +190,12 @@ $config['adt_site_distribution_table_filters_default'] = array();
 /*drug_summary_chart*/
 $config['drug_summary_chart_chartview'] = 'charts/stacked_column_view';
 $config['drug_summary_chart_title'] = 'Drugs Summary view';
-$config['drug_summary_chart_yaxis_title'] = 'No. of Patients';
+$config['drug_summary_chart_yaxis_title'] = 'Consumption';
 $config['drug_summary_chart_source'] = 'Source: www.nascop.org';
 $config['drug_summary_chart_has_drilldown'] = FALSE;
-$config['drug_summary_chart_xaxis_title'] = '';
-$config['drug_summary_chart_view_name'] = 'dsh_patient';
-$config['drug_summary_chart_filters'] = array('data_year', 'county', 'sub_county', 'facility', 'regimen_service');
+$config['drug_summary_chart_xaxis_title'] = 'Drugs';
+$config['drug_summary_chart_view_name'] = 'dsh_consumption';
+$config['drug_summary_chart_filters'] = array('data_year', 'data_month', 'sub_county');
 $config['drug_summary_chart_filters_default'] = array(
 	'data_year' => array('2017','2016'), 
 	'regimen_service' => array('ART')
