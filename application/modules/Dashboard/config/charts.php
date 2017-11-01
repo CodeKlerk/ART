@@ -188,8 +188,8 @@ $config['adt_site_distribution_table_filters_default'] = array();
 
 
 /*drug_summary_chart*/
-$config['drug_summary_chartview'] = 'charts/stacked_column_view';
-$config['drug_summary_chart_title'] = 'Patient Scaleup Trend';
+$config['drug_summary_chart_chartview'] = 'charts/stacked_column_view';
+$config['drug_summary_chart_title'] = 'Drugs Summary view';
 $config['drug_summary_chart_yaxis_title'] = 'No. of Patients';
 $config['drug_summary_chart_source'] = 'Source: www.nascop.org';
 $config['drug_summary_chart_has_drilldown'] = FALSE;

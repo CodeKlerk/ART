@@ -82,6 +82,8 @@ class Dashboard extends MX_Controller {
 			$main_data = $this->dashboard_model->get_adt_site_distribution($filters);
 		}else if($chartname == 'adt_site_distribution_table'){
 			$main_data = $this->dashboard_model->get_adt_site_distribution_numbers($filters);
+		}else if($chartname == 'drug_summary_chart'){
+			$main_data = $this->dashboard_model->get_top_commodities($filters);
 		}
 		return $main_data;
 	}

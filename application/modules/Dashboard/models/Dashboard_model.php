@@ -12,9 +12,9 @@ class Dashboard_model extends CI_Model {
 		);
 
 		$this->db->select("CONCAT_WS('/', data_month, data_year) period,
-		 SUM(IF(age_category = 'paed', total, NULL)) paed_total, 
-		 SUM(IF(age_category = 'adult', total, NULL)) adult_total,
-			 round(RAND()*150000)+650000  combined_total 
+			SUM(IF(age_category = 'paed', total, NULL)) paed_total, 
+			SUM(IF(age_category = 'adult', total, NULL)) adult_total,
+			round(RAND()*150000)+650000  combined_total 
 			-- SUM(total) combined_total 
 			", FALSE);
 		if(!empty($filters)){
@@ -258,13 +258,16 @@ class Dashboard_model extends CI_Model {
 	public function get_adt_site_distribution($filters){
 		$columns = array();
 
-		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, SUM(case when installed = 'yes' then 1 else 0 end) installed, SUM(case when installed = 'no' then 1 else 0 end) not_yet", FALSE);
+		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, 
+			SUM(case when installed = 'yes' then 1 else 0 end) installed, 
+			SUM(case when installed = 'no' then 1 else 0 end) not_yet", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
 			}
 		}
 		$this->db->group_by('name');
+		// $this->db->order_by('installed', 'DESC');
 		$query = $this->db->get('dsh_site');
 		$results = $query->result_array();
 
@@ -299,6 +302,41 @@ class Dashboard_model extends CI_Model {
 		$this->db->order_by('active_patients', 'DESC');
 		$query = $this->db->get('dsh_site');
 		return array('main' => $query->result_array(), 'columns' => $columns);
+	}
+
+
+	public function get_top_commodities($filters){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("drug,sum(total) as total ", FALSE);
+		// if(!empty($filters)){
+		// 	foreach ($filters as $category => $filter) {
+		// 		$this->db->where_in($category, $filter);
+		// 	}
+		// }
+		$this->db->group_by('drug');
+		$this->db->order_by("total DESC");
+		$this->db->limit("20");
+		$query = $this->db->get('dsh_consumption');
+		$results = $query->result_array();
+
+		foreach ($results as $result) {
+			array_push($data, $result['total']);
+		}
+
+		foreach ($results as $result) {
+			array_push($columns, $result['drug']);
+		}
+
+		return array('main' =>  array(
+			array(
+				'type' => 'column', 
+				'name' => 'Drug',
+				'data' => $data
+			))
+		, 'columns' => $columns);
+
 	}
 	
 }
