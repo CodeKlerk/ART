@@ -430,6 +430,40 @@ class Dashboard_model extends CI_Model {
 
 	}
 
+	public function get_regimen_patients_by_county($filters){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("county, count(county) as total  ", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->group_by('county');
+		$this->db->order_by("total DESC");
+		// $this->db->limit("20");
+		$query = $this->db->get('dsh_patient');
+		$results = $query->result_array();
+
+		foreach ($results as $result) {
+			array_push($data, $result['total']);
+		}
+
+		foreach ($results as $result) {
+			array_push($columns, $result['county']);
+		}
+
+		return array('main' =>  array(
+			array(
+				'type' => 'column', 
+				'name' => 'County',
+				'data' => $data
+			))
+		, 'columns' => $columns);
+
+	}
+
 	public function get_regimens(){
 		$columns = array();
 		$data = array();

@@ -103,8 +103,8 @@ class Dashboard extends MX_Controller {
 			$main_data = $this->dashboard_model->get_top_commodities($filters);
 		}else if($chartname == 'drug_regimen_consumption_chart'){
 			$main_data = $this->dashboard_model->get_top_commodities($filters);
-		}else if($chartname == 'drug_regimen_consumption_chart'){
-			$main_data = $this->dashboard_model->get_top_commodities($filters);
+		}else if($chartname == 'regimen_patients_counties_chart'){
+			$main_data = $this->dashboard_model->get_regimen_patients_by_county($filters);
 		}else if($chartname == 'drug_consumption_chart'){
 
 			// $main_data = $this->dashboard_model->get_drug_consumption($filters);

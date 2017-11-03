@@ -271,6 +271,23 @@ $config['drug_regimen_consumption_chart_filters_default'] = array(
 	'data_year' => array('2017','2016'), 
 	'data_month' => array('Jun')
 );
+
+
+// regimen_patients_counties_chart
+$config['regimen_patients_counties_chart_chartview'] = 'charts/stacked_column_view';
+$config['regimen_patients_counties_chart_title'] = 'Patients on regimen by County';
+$config['regimen_patients_counties_chart_yaxis_title'] = 'Patients';
+$config['regimen_patients_counties_chart_source'] = 'Source: www.nascop.org';
+$config['regimen_patients_counties_chart_has_drilldown'] = FALSE;
+$config['regimen_patients_counties_chart_xaxis_title'] = 'Drugs';
+$config['regimen_patients_counties_chart_view_name'] = 'commodities';
+$config['regimen_patients_counties_chart_filters'] = array('data_year', 'county', 'regimen');
+$config['regimen_patients_counties_chart_filters_default'] = array(
+	'data_year' => array('2016',2017), 
+	// 'data_month' => array('Jun'),
+	'regimen' => array('AF3C | d4T + 3TC + ABC')
+);
+
 // drug_consumption_chart
 
 $config['drug_consumption_chart_chartview'] = 'charts/stacked_column_view';

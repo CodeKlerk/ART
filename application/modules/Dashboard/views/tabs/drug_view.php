@@ -55,6 +55,23 @@
 					</div>
 				</div>
 			</div>
+
+
+			<div class="col-sm-12">
+				<div class="chart-wrapper">
+					<div class="chart-title">
+						Patients on regimen by County
+					</div>
+					<div class="chart-stage">
+						<div id="regimen_patients_counties_chart"></div>
+					</div>
+					<div class="chart-notes">
+						Filtered By: <span class="regimen_patients_counties_heading"></span>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
 	</div>
 </div>

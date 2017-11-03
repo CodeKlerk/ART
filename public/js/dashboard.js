@@ -11,7 +11,7 @@ charts['facility'] = ['facility_patient_distribution_chart', 'facility_patient_d
 charts['partner_summary'] = ['partner_patient_distribution_chart', 'partner_patient_distribution_table']
 charts['adt_site'] = ['adt_version_distribution_chart','adt_site_distribution_chart', 'adt_site_distribution_table']
 charts['commodity'] = ['drug_summary_chart']
-charts['drug'] = ['drug_consumption_chart','drug_regimen_consumption_chart']
+charts['drug'] = ['drug_consumption_chart','drug_regimen_consumption_chart','regimen_patients_counties_chart']
 
 
 $(function() {
