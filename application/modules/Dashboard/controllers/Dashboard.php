@@ -14,25 +14,39 @@ class Dashboard extends MX_Controller {
 		$this->load->view('template/dashboard_view', $data);
 	}
 
-	public function get_filter()
-	{	
-		$tab = $this->input->post('filter_tab');
-		$type = $this->input->post('filter_type');
-		$item = $this->input->post('filter_item');
-		$year = $this->input->post('filter_year');
-		$month = $this->input->post('filter_month');
+	public function get_filter($chartname, $selectedfilters)
+	{
+		$filter = array();	
+		$defaultfilters = $this->config->item($chartname.'_filters_default');
+		$filtersColumns = $this->config->item($chartname.'_filters');
 
-		echo json_encode('');
+		// check if input has filters/values
+		if(empty($selectedfilters)){
+			$filter = $defaultfilters;
+		}
+		else{
+
+			// check if selectedfilters have the required filters 
+			$missing_keys = array_keys(array_diff_key($selectedfilters, $defaultfilters));
+			$merged_filters = array_merge($defaultfilters, $selectedfilters);
+			foreach ($merged_filters as $key => $value) {
+				if(!in_array($key, $missing_keys)){
+					$filter[$key] = $value;
+				}
+			}	
+		}
+		return $filter;
 	}
 
 	public function get_chart()
 	{
+
+		/// use default filter columns & values if filters not set
+
 		$chartname = $this->input->post('name');
-		$selectedfilters = $this->input->post('selectedfilters');
+		$selectedfilters = $this->get_filter($chartname,$this->input->post('selectedfilters'));
+
 		//Get default filters
-		if(empty($selectedfilters)){
-			$selectedfilters = $this->config->item($chartname.'_filters_default');
-		}
 		//Get chart configuration
 		$data['chart_name']  = $chartname;
 		$data['chart_title']  = $this->config->item($chartname.'_title');
@@ -84,8 +98,39 @@ class Dashboard extends MX_Controller {
 			$main_data = $this->dashboard_model->get_adt_site_distribution_numbers($filters);
 		}else if($chartname == 'drug_summary_chart'){
 			$main_data = $this->dashboard_model->get_top_commodities($filters);
+		}else if($chartname == 'drug_regimen_consumption_chart'){
+			$main_data = $this->dashboard_model->get_top_commodities($filters);
+		}else if($chartname == 'drug_regimen_consumption_chart'){
+			$main_data = $this->dashboard_model->get_top_commodities($filters);
+		}else if($chartname == 'drug_consumption_chart'){
+
+			// $main_data = $this->dashboard_model->get_drug_consumption($filters);
+			   $json = '{"main":[{"type":"column","name":"Paediatric","data":["72098","72622","72852","72957","75239","76129","77730","78112","78037","78083","78446","78739","78775","79082","79221","79812","80536","81088","81444"]}],"columns":["Jan\/2016","Feb\/2016","Mar\/2016","Apr\/2016","May\/2016","Jun\/2016","Jul\/2016","Aug\/2016","Sep\/2016","Oct\/2016","Nov\/2016","Dec\/2016","Jan\/2017","Feb\/2017","Mar\/2017","Apr\/2017","May\/2017","Jun\/2017","Jul\/2017"]}';
+			   $main_data = json_decode($json,true);
+			   // var_dump($main_data);die;
+		}else if($chartname == 'adt_version_distribution_chart'){
+
+			// $main_data = $this->dashboard_model->get_drug_consumption($filters);
+			   $json = '{"main":[{"name": "Installed Sites","y": 159}, {"name": "Sites not installed","y": 266}]}';
+			   $main_data = json_decode($json,true);
+			   // var_dump($main_data);die;
 		}
+		// 
 		return $main_data;
+	}
+
+	function get_regimens(){
+		$regimens = $this->dashboard_model->get_regimens();
+		header('Content-Type: application/json');
+		echo json_encode($regimens);
+
+	}
+
+	function get_counties(){
+		$counties = $this->dashboard_model->get_counties();
+		header('Content-Type: application/json');
+		echo json_encode($counties);
+
 	}
 	
 }

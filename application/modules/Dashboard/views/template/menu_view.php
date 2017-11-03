@@ -48,6 +48,7 @@
 					</ul>
 				</li>
 
+	          	<li><a href="#drug" aria-controls="drug" role="tab" data-toggle="tab" style="display: none">drug</a></li>
 	          	<li><a href="#adt_site" aria-controls="adt_site" role="tab" data-toggle="tab">ADT Sites</a></li>
 	          	<li>
 	          		<a href="<?php echo base_url().'admin'; ?>" target="_blank" class="btn btn-success">

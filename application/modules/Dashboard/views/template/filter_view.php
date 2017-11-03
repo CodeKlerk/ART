@@ -3,7 +3,7 @@
     <div class="navbar-collapse collapse" id="navbar-filter">
       <form class="navbar-form" role="search" id="filter_frm">
         <div class="form-group">
-          <select name="filter_item" id="filter_item" data-filter_type="county" class="form-control">
+          <select name="filter_item" id="filter_item" data-filter_type="county" class="form-control county_filter">
               <option value="">National</option>
           </select>
         </div>

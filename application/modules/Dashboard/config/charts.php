@@ -9,7 +9,7 @@ $config['patient_scaleup_chart_source'] = 'Source: www.nascop.org';
 $config['patient_scaleup_chart_has_drilldown'] = FALSE;
 $config['patient_scaleup_chart_xaxis_title'] = '';
 $config['patient_scaleup_chart_view_name'] = 'dsh_patient';
-$config['patient_scaleup_chart_filters'] = array('data_year', 'county', 'sub_county', 'facility', 'regimen_service');
+$config['patient_scaleup_chart_filters'] = array('data_year', 'data_month','county', 'regimen_service');
 $config['patient_scaleup_chart_filters_default'] = array(
 	'data_year' => array('2017','2016'), 
 	'regimen_service' => array('ART')
@@ -164,10 +164,51 @@ $config['partner_patient_distribution_table_filters_default'] = array(
 	'data_month' => array('Jun')
 );
 
+
+/*adt_version_distribution_chart*/
+$config['adt_version_distribution_chart_chartview'] = 'charts/pie_view';
+$config['adt_version_distribution_chart_title'] = 'ADT Site Numbers';
+$config['adt_version_distribution_chart_yaxis_title'] = '% of Sites';
+$config['adt_version_distribution_chart_source'] = 'Source: www.nascop.org';
+$config['adt_version_distribution_chart_has_drilldown'] = FALSE;
+$config['adt_version_distribution_chart_xaxis_title'] = 'Sites';
+$config['adt_version_distribution_chart_view_name'] = 'dsh_site';
+$config['adt_version_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
+$config['adt_version_distribution_chart_filters_default'] = array();
+
+
+
+/*adt_version_distribution_chart*/
+$config['adt_version_distribution_chart_chartview'] = 'charts/pie_view';
+$config['adt_version_distribution_chart_title'] = 'ADT Site Numbers';
+$config['adt_version_distribution_chart_yaxis_title'] = '% of Sites';
+$config['adt_version_distribution_chart_source'] = 'Source: www.nascop.org';
+$config['adt_version_distribution_chart_has_drilldown'] = FALSE;
+$config['adt_version_distribution_chart_xaxis_title'] = 'Sites';
+$config['adt_version_distribution_chart_view_name'] = 'dsh_site';
+$config['adt_version_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
+$config['adt_version_distribution_chart_filters_default'] = array();
+
+
+
+/*adt_version_distribution_chart*/
+$config['adt_version_distribution_chart_chartview'] = 'charts/pie_view';
+$config['adt_version_distribution_chart_title'] = 'ADT Site Numbers';
+$config['adt_version_distribution_chart_yaxis_title'] = '% of Sites';
+$config['adt_version_distribution_chart_source'] = 'Source: www.nascop.org';
+$config['adt_version_distribution_chart_has_drilldown'] = FALSE;
+$config['adt_version_distribution_chart_xaxis_title'] = 'Sites';
+$config['adt_version_distribution_chart_view_name'] = 'dsh_site';
+$config['adt_version_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
+$config['adt_version_distribution_chart_filters_default'] = array();
+
+
+
+
 /*adt_site_distribution_chart*/
 $config['adt_site_distribution_chart_chartview'] = 'charts/stacked_column_view';
 $config['adt_site_distribution_chart_title'] = 'ADT Site Numbers';
-$config['adt_site_distribution_chart_yaxis_title'] = 'No. of Sites';
+$config['adt_site_distribution_chart_yaxis_title'] = '% of Sites';
 $config['adt_site_distribution_chart_source'] = 'Source: www.nascop.org';
 $config['adt_site_distribution_chart_has_drilldown'] = FALSE;
 $config['adt_site_distribution_chart_xaxis_title'] = 'Sites';
@@ -194,9 +235,38 @@ $config['drug_summary_chart_yaxis_title'] = 'Consumption';
 $config['drug_summary_chart_source'] = 'Source: www.nascop.org';
 $config['drug_summary_chart_has_drilldown'] = FALSE;
 $config['drug_summary_chart_xaxis_title'] = 'Drugs';
-$config['drug_summary_chart_view_name'] = 'dsh_consumption';
-$config['drug_summary_chart_filters'] = array('data_year', 'data_month', 'sub_county');
+$config['drug_summary_chart_view_name'] = 'commodities';
+$config['drug_summary_chart_filters'] = array('data_year', 'data_month', 'county');
 $config['drug_summary_chart_filters_default'] = array(
 	'data_year' => array('2017','2016'), 
-	'regimen_service' => array('ART')
+	'data_month' => array('Jun')
+);
+
+// drug_regimen_consumption_chart
+
+$config['drug_regimen_consumption_chart_chartview'] = 'charts/stacked_column_view';
+$config['drug_regimen_consumption_chart_title'] = 'Drugs Consumption view';
+$config['drug_regimen_consumption_chart_yaxis_title'] = 'Consumption';
+$config['drug_regimen_consumption_chart_source'] = 'Source: www.nascop.org';
+$config['drug_regimen_consumption_chart_has_drilldown'] = FALSE;
+$config['drug_regimen_consumption_chart_xaxis_title'] = 'Drugs';
+$config['drug_regimen_consumption_chart_view_name'] = 'commodities';
+$config['drug_regimen_consumption_chart_filters'] = array('data_year', 'data_month', 'county', 'regimen');
+$config['drug_regimen_consumption_chart_filters_default'] = array(
+	'data_year' => array('2017','2016'), 
+	'data_month' => array('Jun')
+);
+// drug_consumption_chart
+
+$config['drug_consumption_chart_chartview'] = 'charts/stacked_column_view';
+$config['drug_consumption_chart_title'] = 'Drugs Consumption view';
+$config['drug_consumption_chart_yaxis_title'] = 'Consumption';
+$config['drug_consumption_chart_source'] = 'Source: www.nascop.org';
+$config['drug_consumption_chart_has_drilldown'] = FALSE;
+$config['drug_consumption_chart_xaxis_title'] = 'Drugs';
+$config['drug_consumption_chart_view_name'] = 'commodities';
+$config['drug_consumption_chart_filters'] = array('data_year', 'data_month', 'sub_county');
+$config['drug_consumption_chart_filters_default'] = array(
+	'data_year' => array('2017','2016'), 
+	'data_month' => array('Jun')
 );
