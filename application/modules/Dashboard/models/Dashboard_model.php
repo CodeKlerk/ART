@@ -312,16 +312,16 @@ class Dashboard_model extends CI_Model {
 		$columns = array();
 		$data = array();
 
-		$this->db->select("drug,sum(total) as total ", FALSE);
+		$this->db->select("regimen,count(regimen)  as total  ", FALSE);
 		// if(!empty($filters)){
 		// 	foreach ($filters as $category => $filter) {
 		// 		$this->db->where_in($category, $filter);
 		// 	}
 		// }
-		$this->db->group_by('drug');
+		$this->db->group_by('regimen');
 		$this->db->order_by("total DESC");
 		$this->db->limit("20");
-		$query = $this->db->get('dsh_consumption');
+		$query = $this->db->get('dsh_patient');
 		$results = $query->result_array();
 
 		foreach ($results as $result) {
@@ -329,13 +329,13 @@ class Dashboard_model extends CI_Model {
 		}
 
 		foreach ($results as $result) {
-			array_push($columns, $result['drug']);
+			array_push($columns, $result['regimen']);
 		}
 
 		return array('main' =>  array(
 			array(
 				'type' => 'column', 
-				'name' => 'Drug',
+				'name' => 'Regimen',
 				'data' => $data
 			))
 		, 'columns' => $columns);
@@ -380,7 +380,7 @@ class Dashboard_model extends CI_Model {
 		$columns = array();
 		$data = array();
 
-		$this->db->select("id, code", FALSE);
+		$this->db->select("id, name", FALSE);
 
 		$query = $this->db->get('tbl_regimen');
 		$results = $query->result_array();

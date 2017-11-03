@@ -57,24 +57,24 @@
 					</div>
 				</div>
 			</div>
-		   <div class="col-sm-4">
-    		<div class="tile-progress tile-primary">
-    			<div class="tile-header">
-    				<h3>ADT Sites</h3>
-    				<span>ADT sites 433 <br />
-    				central sites installed 172</span>
-    			</div>
-    			<div class="tile-progressbar">
-    				<span data-fill="65.5%" style="width: 65.5%;"></span>
-    			</div>
-    			<div class="tile-footer">
-    				<h4>
-    					<span class="pct-counter">350</span> ADT installs
-    				</h4>
-    				<!-- <span>so far in our blog and our website</span> -->
-    			</div>
-    		</div>
-    	</div>
+			<div class="col-sm-4">
+				<div class="tile-progress tile-primary">
+					<div class="tile-header">
+						<h3>ADT Sites</h3>
+						<span>ADT sites 433 <br />
+						central sites installed 172</span>
+					</div>
+					<div class="tile-progressbar">
+						<span data-fill="65.5%" style="width: 65.5%;"></span>
+					</div>
+					<div class="tile-footer">
+						<h4>
+							<span class="pct-counter">350</span> ADT installs
+						</h4>
+						<!-- <span>so far in our blog and our website</span> -->
+					</div>
+				</div>
+			</div>
 
 
 			<div class="col-sm-12">

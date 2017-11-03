@@ -4,10 +4,16 @@
 		$.getJSON("Dashboard/get_regimens", function(jsonData){
 			cb = '';
 			$.each(jsonData, function(i,data){
-				cb+='<option value="#'+data.id+'">'+data.code+'</option>';
+			cb+='<option value="#'+data.id+'">'+data.name+'</option>';
 			});
 			$("#regimen_filter").append(cb);
 		});
+
+
+		$("#single_regimen_filter").change(function(){
+		$('#regimen_name').text($("#regimen_filter option:selected").text());
+		});
+
 	});
 </script>
 <div role="tabpanel" class="tab-pane" id="drug">
@@ -17,14 +23,14 @@
 				<!--commodities analysis-->
 				<div class="form-group">
 					<select name="regimen_filter" id="regimen_filter" data-filter_type="regimen" class="form-control regimen_filter">
-						<option value="">-- select regimen --</option>
+						<option value="">-- Select Regimen --</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-sm-12">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						Regimens where drug used
+						Top Drugs used in <span id="regimen_name"></span>
 					</div>
 					<div class="chart-stage">
 						<div id="drug_regimen_consumption_chart"></div>

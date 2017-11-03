@@ -230,7 +230,7 @@ $config['adt_site_distribution_table_filters_default'] = array();
 
 /*drug_summary_chart*/
 $config['drug_summary_chart_chartview'] = 'charts/stacked_column_view';
-$config['drug_summary_chart_title'] = 'Drugs Summary view';
+$config['drug_summary_chart_title'] = 'Regimens by patients';
 $config['drug_summary_chart_yaxis_title'] = 'Consumption';
 $config['drug_summary_chart_source'] = 'Source: www.nascop.org';
 $config['drug_summary_chart_has_drilldown'] = FALSE;
@@ -245,7 +245,7 @@ $config['drug_summary_chart_filters_default'] = array(
 // drug_regimen_consumption_chart
 
 $config['drug_regimen_consumption_chart_chartview'] = 'charts/stacked_column_view';
-$config['drug_regimen_consumption_chart_title'] = 'Drugs Consumption view';
+$config['drug_regimen_consumption_chart_title'] = 'Top Regimens by patients';
 $config['drug_regimen_consumption_chart_yaxis_title'] = 'Consumption';
 $config['drug_regimen_consumption_chart_source'] = 'Source: www.nascop.org';
 $config['drug_regimen_consumption_chart_has_drilldown'] = FALSE;

@@ -4,14 +4,16 @@
 		$.getJSON("Dashboard/get_regimens", function(jsonData){
 			cb = '';
 			$.each(jsonData, function(i,data){
-				cb+='<option value="#'+data.id+'">'+data.code+'</option>';
+				cb+='<option value="#'+data.id+'">'+data.name+'</option>';
 			});
 			$("#single_regimen_filter").append(cb);
 		});
 
-			$("#single_regimen_filter").change(function(){
-				$("#main_tabs a[href='#drug']").trigger('click');
-			});
+		$("#single_regimen_filter").change(function(){
+		$("#regimen_filter").val($("#single_regimen_filter").val());
+
+			$("#main_tabs a[href='#drug']").trigger('click');
+		});
 
 	});
 
@@ -23,14 +25,14 @@
 				<!--commodities analysis-->
 				<div class="form-group">
 					<select name="single_regimen_filter" id="single_regimen_filter" data-filter_type="regimen" class="form-control regimen_filter">
-						<option value="">-- select Regimen --</option>
+						<option value="">-- Select Regimen --</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-sm-12">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						COMMODITIES
+						Regimens
 					</div>
 					<div class="chart-stage">
 						<div id="drug_summary_chart"></div>
