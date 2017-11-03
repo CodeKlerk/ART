@@ -48,6 +48,7 @@
 					</div>
 					<div class="chart-stage">
 						<div id="drug_consumption_chart"></div>
+						<small>*Note: drugs may be used in more than 1 regimen hence may affect accuracy of above data</small> 
 					</div>
 					<div class="chart-notes">
 						Filtered By: <span class="drug_consumption_heading"></span>

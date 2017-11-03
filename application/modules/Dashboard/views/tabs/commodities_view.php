@@ -9,6 +9,7 @@
 			$("#single_regimen_filter").append(cb);
 		});
 
+			
 		$("#single_regimen_filter").change(function(){
 		$("#regimen_filter").val($("#single_regimen_filter").val());
 

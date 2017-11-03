@@ -15,6 +15,21 @@ $config['patient_scaleup_chart_filters_default'] = array(
 	'regimen_service' => array('ART')
 );
 
+
+/*patient_scaleup_chart*/
+$config['patient_services_chart_chartview'] = 'charts/stacked_column_view';
+$config['patient_services_chart_title'] = 'Patient Services by County';
+$config['patient_services_chart_yaxis_title'] = 'No. of Patients';
+$config['patient_services_chart_source'] = 'Source: www.nascop.org';
+$config['patient_services_chart_has_drilldown'] = FALSE;
+$config['patient_services_chart_xaxis_title'] = '';
+$config['patient_services_chart_view_name'] = 'dsh_patient';
+$config['patient_services_chart_filters'] = array('data_year', 'data_month');
+$config['patient_services_chart_filters_default'] = array(
+	// 'data_year' => array('2017','2016') 
+	// 'regimen_service' => array('ART')
+);
+
 /*national_mos_chart*/
 $config['national_mos_chart_chartview'] = 'charts/stacked_bar_view';
 $config['national_mos_chart_title'] = 'National Commodity Months of Stock(MOS)';
@@ -245,7 +260,7 @@ $config['drug_summary_chart_filters_default'] = array(
 // drug_regimen_consumption_chart
 
 $config['drug_regimen_consumption_chart_chartview'] = 'charts/stacked_column_view';
-$config['drug_regimen_consumption_chart_title'] = 'Top Regimens by patients';
+$config['drug_regimen_consumption_chart_title'] = 'Drugs used in regimen';
 $config['drug_regimen_consumption_chart_yaxis_title'] = 'Consumption';
 $config['drug_regimen_consumption_chart_source'] = 'Source: www.nascop.org';
 $config['drug_regimen_consumption_chart_has_drilldown'] = FALSE;
@@ -259,7 +274,7 @@ $config['drug_regimen_consumption_chart_filters_default'] = array(
 // drug_consumption_chart
 
 $config['drug_consumption_chart_chartview'] = 'charts/stacked_column_view';
-$config['drug_consumption_chart_title'] = 'Drugs Consumption view';
+$config['drug_consumption_chart_title'] = 'Regimen Consumption view';
 $config['drug_consumption_chart_yaxis_title'] = 'Consumption';
 $config['drug_consumption_chart_source'] = 'Source: www.nascop.org';
 $config['drug_consumption_chart_has_drilldown'] = FALSE;

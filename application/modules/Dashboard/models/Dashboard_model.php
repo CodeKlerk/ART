@@ -44,6 +44,60 @@ class Dashboard_model extends CI_Model {
 		return array('main' => $scaleup_data, 'columns' => $columns);
 	}
 
+	public function get_patient_services($filters){
+		$columns = array();
+		$patient_services_data = array(
+			array('type' => 'column',  'name' => 'ART' , 'data' =>array()),
+			array('type' => 'column',  'name' => 'HepB' , 'data' =>array()),
+			array('type' => 'column',  'name' => 'OI Only' , 'data' =>array()),
+			array('type' => 'column',  'name' => 'PEP' , 'data' =>array()),
+			array('type' => 'column',  'name' => 'PMTCT' , 'data' =>array()),
+			array('type' => 'column',  'name' => 'PrEP' , 'data' =>array())
+		);
+
+		$this->db->select("county, 
+							count(regimen_service),
+							COUNT(IF(regimen_service= 'ART', total, NULL)) art,
+							COUNT(IF(regimen_service= 'PMTCT', total, NULL)) pmtct,
+							COUNT(IF(regimen_service= 'OI Only', total, NULL)) oi,
+							COUNT(IF(regimen_service= 'HepB', total, NULL)) hepb,
+							COUNT(IF(regimen_service= 'PrEP', total, NULL)) prep,
+							COUNT(IF(regimen_service= 'PEP', total, NULL)) pep", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->group_by('county');
+		$this->db->order_by("county , regimen_service asc");
+		$query = $this->db->get('dsh_patient');
+		$results = $query->result_array();
+
+
+		if($results){
+			foreach ($results as $result) {
+				$columns[] = $result['county'];
+				foreach ($patient_services_data as $index => $scaleup) {
+					if($scaleup['name'] == 'ART'){
+						array_push($patient_services_data[$index]['data'], $result['art']);
+					}else if($scaleup['name'] == 'HepB'){
+						array_push($patient_services_data[$index]['data'], $result['hepb']);
+					}else if($scaleup['name'] == 'OI Only'){
+						array_push($patient_services_data[$index]['data'], $result['oi']);	
+					}else if($scaleup['name'] == 'PEP'){
+						array_push($patient_services_data[$index]['data'], $result['pep']);	
+					}else if($scaleup['name'] == 'PMTCT'){
+						array_push($patient_services_data[$index]['data'], $result['pmtct']);	
+					}else if($scaleup['name'] == 'PrEP'){
+						array_push($patient_services_data[$index]['data'], $result['prep']);	
+					}
+				}
+			}
+		}
+		return array('main' => $patient_services_data, 'columns' => $columns);
+	}
+
+
 	public function get_national_mos($filters){
 		$columns = array();
 		$scaleup_data = array(

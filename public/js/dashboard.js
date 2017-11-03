@@ -3,7 +3,7 @@ var tab = 'summary'
 var filters = {}
 var charts = []
 
-charts['summary'] = ['patient_scaleup_chart', 'national_mos_chart']
+charts['summary'] = ['patient_scaleup_chart','patient_services_chart', 'national_mos_chart']
 charts['trend'] = ['commodity_consumption_chart']
 charts['county'] = ['county_patient_distribution_chart', 'county_patient_distribution_table']
 charts['subcounty'] = ['subcounty_patient_distribution_chart', 'subcounty_patient_distribution_table']
