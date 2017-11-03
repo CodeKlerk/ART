@@ -259,15 +259,18 @@ class Dashboard_model extends CI_Model {
 		$columns = array();
 
 		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, 
-			SUM(case when installed = 'yes' then 1 else 0 end) installed, 
-			SUM(case when installed = 'no' then 1 else 0 end) not_yet", FALSE);
+			count(county) total_sites, 
+			round(SUM(case when installed = 'yes' then 1 else 0 end)/count(county) * 100) installed, 
+			round(SUM(case when installed = 'no' then 1 else 0 end)/count(county) * 100) not_yet,
+			SUM(case when installed = 'yes' then 1 else 0 end) installed_sites, 
+			SUM(case when installed = 'no' then 1 else 0 end) not_yet_installed_sites ", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
 			}
 		}
 		$this->db->group_by('name');
-		// $this->db->order_by('installed', 'DESC');
+		$this->db->order_by('installed', 'DESC');
 		$query = $this->db->get('dsh_site');
 		$results = $query->result_array();
 
@@ -284,8 +287,8 @@ class Dashboard_model extends CI_Model {
 				}
 			}
 		}
-		$data[] = array('name' => 'installed', 'data' => $installed);
-		$data[] = array('name' => 'not_yet', 'data' => $not_yet);
+		$data[] = array('name' => 'Installed sites', 'data' => $installed);
+		$data[] = array('name' => 'Sites not installed', 'data' => $not_yet);
 
 		return array('main' => $data, 'columns' => $columns);
 	}
@@ -338,5 +341,70 @@ class Dashboard_model extends CI_Model {
 		, 'columns' => $columns);
 
 	}
+
+	public function get_drug_consumption($filters){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("drug,sum(total) as total ", FALSE);
+		// if(!empty($filters)){
+		// 	foreach ($filters as $category => $filter) {
+		// 		$this->db->where_in($category, $filter);
+		// 	}
+		// }
+		$this->db->group_by('drug');
+		$this->db->order_by("total DESC");
+		$this->db->limit("20");
+		$query = $this->db->get('dsh_consumption');
+		$results = $query->result_array();
+
+		foreach ($results as $result) {
+			array_push($data, $result['total']);
+		}
+
+		foreach ($results as $result) {
+			array_push($columns, $result['drug']);
+		}
+
+		return array('main' =>  array(
+			array(
+				'type' => 'column', 
+				'name' => 'Drug',
+				'data' => $data
+			))
+		, 'columns' => $columns);
+
+	}
+
+	public function get_regimens(){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("id, code", FALSE);
+
+		$query = $this->db->get('tbl_regimen');
+		$results = $query->result_array();
+
+		return $results;
+
+	}
+
+
+
+	public function get_counties(){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("id, name", FALSE);
+
+		$query = $this->db->get('tbl_county');
+		$results = $query->result_array();
+
+		return $results;
+
+	}
+
+
+	
 	
 }

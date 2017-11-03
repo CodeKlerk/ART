@@ -9,8 +9,9 @@ charts['county'] = ['county_patient_distribution_chart', 'county_patient_distrib
 charts['subcounty'] = ['subcounty_patient_distribution_chart', 'subcounty_patient_distribution_table']
 charts['facility'] = ['facility_patient_distribution_chart', 'facility_patient_distribution_table']
 charts['partner_summary'] = ['partner_patient_distribution_chart', 'partner_patient_distribution_table']
-charts['adt_site'] = ['adt_site_distribution_chart', 'adt_site_distribution_table']
+charts['adt_site'] = ['adt_version_distribution_chart','adt_site_distribution_chart', 'adt_site_distribution_table']
 charts['commodity'] = ['drug_summary_chart']
+charts['drug'] = ['drug_consumption_chart','drug_regimen_consumption_chart']
 
 
 $(function() {
@@ -22,7 +23,39 @@ $(function() {
     /*Set selected tab*/
     $("#filter_tab").val(tab)
     /*Tab Change Event*/
-    $("#main_tabs a").on("click", TabFilterHandler);
+    $("#main_tabs a").on("click", TabFilterHandler);    
+
+    // on regimen change. load regimen page
+    $("#single_regimen_filter").on("change", TabFilterHandler);
+    $("#regimen_filter").on("change", TabFilterHandler);
+    // $("#single_regimen_filter, #regimen_filter").on("change", TabFilterHandler);
+    
+    /*Filter Month*/
+    $(".filter-month").on("click", function(){
+        month_selected = $(this).data('value');
+        $("#filter_month").val(month_selected);
+    });
+    /*Filter Year*/
+    $(".filter-year").on("click", function(){
+        year_selected = $(this).data('value');
+        $("#filter_year").val(year_selected);
+
+
+    });
+    /*Filter Submit*/
+    $("#filter_frm").on("submit", function(e){
+        //*Prevent submission*/
+        e.preventDefault();
+        /*Set filters*/
+        filters['data_month'] = $("#filter_month").val();
+        filters['data_year'] = $("#filter_year").val();
+
+        /*Load Charts based on tab*/
+        $.each(charts[tab], function(key, chartName) {
+            chartID = '#'+chartName
+            LoadChart(chartID, chartURL, chartName, filters)
+        });
+    });
 });
 
 function LoadChart(divID, chartURL, chartName, selectedfilters){
@@ -40,8 +73,9 @@ function LoadSpinner(divID){
 }
 
 function TabFilterHandler(e){
-    var filtername = $(e.target).attr('href')
+    var filtername = ($(e.target).attr('href') !== undefined ) ? $(e.target).attr('href') :  '#drug'; 
     var filters = {}
+
     tab = filtername.replace('#', '')
     if(tab){
         //Reset filter identifier
@@ -52,4 +86,8 @@ function TabFilterHandler(e){
             LoadChart(chartID, chartURL, chartName, filters)
         });
     }
+}
+
+function setFilter(className, hiddenID){
+
 }
