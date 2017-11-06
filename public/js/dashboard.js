@@ -49,6 +49,7 @@ $(function() {
         /*Set filters*/
         filters['data_month'] = $("#filter_month").val();
         filters['data_year'] = $("#filter_year").val();
+        filters['county'] = $(".county_filter").val();
 
         /*Load Charts based on tab*/
         $.each(charts[tab], function(key, chartName) {
@@ -56,6 +57,24 @@ $(function() {
             LoadChart(chartID, chartURL, chartName, filters)
         });
     });
+
+
+
+    $('#btn-filter-clear').click(function(e){
+              //*Prevent submission*/
+              e.preventDefault();
+              // /*clearSet filters*/
+              clearfilters = {};
+
+              /*Load Charts based on tab*/
+              $.each(charts[tab], function(key, chartName) {
+                chartID = '#'+chartName
+                LoadChart(chartID, chartURL, chartName, clearfilters)
+            });  
+
+          });
+
+
 });
 
 function LoadChart(divID, chartURL, chartName, selectedfilters){

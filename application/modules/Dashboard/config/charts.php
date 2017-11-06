@@ -12,6 +12,9 @@ $config['patient_scaleup_chart_view_name'] = 'dsh_patient';
 $config['patient_scaleup_chart_filters'] = array('data_year', 'data_month','county', 'regimen_service');
 $config['patient_scaleup_chart_filters_default'] = array(
 	'data_year' => array('2017','2016'), 
+	'county' => array('kiambu'), 
+	// 'county' => array('baringo','bomet','bungoma','busia','elgeyo marakwet','embu','garissa','homa bay','isiolo','kajiado','kakamega','kericho','kiambu','kilifi','kirinyaga','kisii','kisumu','kitui','kwale','laikipia','lamu','machakos','makueni','mandera','marsabit','meru','migori','mombasa','muranga','nairobi','nakuru','nandi','narok','nyamira','nyandarua','nyeri','samburu','siaya','taita taveta','tana river','tharaka nithi','trans nzoia','turkana','uasin gishu','vihiga','wajir','west pokot'), 
+	// 'data_month' => array('2017','2016'), 
 	'regimen_service' => array('ART')
 );
 

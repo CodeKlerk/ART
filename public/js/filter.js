@@ -36,7 +36,7 @@ $(function() {
     $.getJSON("Dashboard/get_counties", function(jsonData){
         cb = '';
         $.each(jsonData, function(i,data){
-            cb+='<option value="#'+data.id+'">'+data.name+'</option>';
+            cb+='<option value="'+data.name+'">'+data.name+'</option>';
         });
         $(".county_filter").append(cb);
     });
