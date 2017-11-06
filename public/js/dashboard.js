@@ -50,6 +50,11 @@ $(function() {
         filters['data_month'] = $("#filter_month").val();
         filters['data_year'] = $("#filter_year").val();
         filters['county'] = $(".county_filter").val();
+        
+
+        filters['regimen'] = $("#regimen_filter").val();
+
+
 
         /*Load Charts based on tab*/
         $.each(charts[tab], function(key, chartName) {
@@ -62,6 +67,11 @@ $(function() {
 
     $('#btn-filter-clear').click(function(e){
               //*Prevent submission*/
+              $('.county_filter').val("");
+              $("#filter_month").val("");
+              $("#filter_year").val("");
+              $(".county_filter").val("");
+              
               e.preventDefault();
               // /*clearSet filters*/
               clearfilters = {};

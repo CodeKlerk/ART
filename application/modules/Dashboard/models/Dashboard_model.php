@@ -367,11 +367,14 @@ class Dashboard_model extends CI_Model {
 		$data = array();
 
 		$this->db->select("regimen,count(regimen)  as total  ", FALSE);
-		// if(!empty($filters)){
-		// 	foreach ($filters as $category => $filter) {
-		// 		$this->db->where_in($category, $filter);
-		// 	}
-		// }
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				if((!is_array($filter)) && strlen($filter)<2){
+					continue;
+				}
+				$this->db->where_in($category, $filter);
+			}
+		}
 		$this->db->group_by('regimen');
 		$this->db->order_by("total DESC");
 		$this->db->limit("20");
