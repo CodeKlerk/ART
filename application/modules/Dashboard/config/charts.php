@@ -269,10 +269,10 @@ $config['drug_regimen_consumption_chart_source'] = 'Source: www.nascop.org';
 $config['drug_regimen_consumption_chart_has_drilldown'] = FALSE;
 $config['drug_regimen_consumption_chart_xaxis_title'] = 'Drugs';
 $config['drug_regimen_consumption_chart_view_name'] = 'commodities';
-$config['drug_regimen_consumption_chart_filters'] = array('data_year', 'data_month', 'county', 'regimen');
+$config['drug_regimen_consumption_chart_filters'] = array('period_year', 'period_month', 'county', 'regimen');
 $config['drug_regimen_consumption_chart_filters_default'] = array(
-	'data_year' => array('2017','2016'), 
-	'data_month' => array('Jun')
+	'period_year' => array('2017','2016'), 
+	'period_month' => array('Jun')
 );
 
 
@@ -301,8 +301,9 @@ $config['drug_consumption_chart_source'] = 'Source: www.nascop.org';
 $config['drug_consumption_chart_has_drilldown'] = FALSE;
 $config['drug_consumption_chart_xaxis_title'] = 'Drugs';
 $config['drug_consumption_chart_view_name'] = 'commodities';
-$config['drug_consumption_chart_filters'] = array('data_year', 'data_month', 'sub_county');
+$config['drug_consumption_chart_filters'] = array('period_year','regimen_id ', 'period_month', 'sub_county');
 $config['drug_consumption_chart_filters_default'] = array(
-	'data_year' => array('2017','2016'), 
-	'data_month' => array('Jun')
+	'period_year' => array('2017','2016'),
+	'regimen_id' => array('0')
+
 );

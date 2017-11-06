@@ -50,9 +50,7 @@ $(function() {
         filters['data_month'] = $("#filter_month").val();
         filters['data_year'] = $("#filter_year").val();
         filters['county'] = $(".county_filter").val();
-        
-
-        filters['regimen'] = $("#regimen_filter").val();
+        filters['regimen_id'] = $("#regimen_filter").val();
 
 
 
@@ -75,6 +73,8 @@ $(function() {
               e.preventDefault();
               // /*clearSet filters*/
               clearfilters = {};
+              // retain regimen id if set 
+              clearfilters['regimen_id'] = $("#regimen_filter").val();
 
               /*Load Charts based on tab*/
               $.each(charts[tab], function(key, chartName) {

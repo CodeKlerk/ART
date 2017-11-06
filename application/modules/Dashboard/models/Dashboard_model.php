@@ -56,13 +56,13 @@ class Dashboard_model extends CI_Model {
 		);
 
 		$this->db->select("county, 
-							count(regimen_service),
-							COUNT(IF(regimen_service= 'ART', total, NULL)) art,
-							COUNT(IF(regimen_service= 'PMTCT', total, NULL)) pmtct,
-							COUNT(IF(regimen_service= 'OI Only', total, NULL)) oi,
-							COUNT(IF(regimen_service= 'HepB', total, NULL)) hepb,
-							COUNT(IF(regimen_service= 'PrEP', total, NULL)) prep,
-							COUNT(IF(regimen_service= 'PEP', total, NULL)) pep", FALSE);
+			count(regimen_service),
+			COUNT(IF(regimen_service= 'ART', total, NULL)) art,
+			COUNT(IF(regimen_service= 'PMTCT', total, NULL)) pmtct,
+			COUNT(IF(regimen_service= 'OI Only', total, NULL)) oi,
+			COUNT(IF(regimen_service= 'HepB', total, NULL)) hepb,
+			COUNT(IF(regimen_service= 'PrEP', total, NULL)) prep,
+			COUNT(IF(regimen_service= 'PEP', total, NULL)) pep", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
@@ -399,20 +399,27 @@ class Dashboard_model extends CI_Model {
 
 	}
 
-	public function get_drug_consumption($filters){
+	public function get_regimen_top_commodities($filters){
 		$columns = array();
 		$data = array();
 
-		$this->db->select("drug,sum(total) as total ", FALSE);
-		// if(!empty($filters)){
-		// 	foreach ($filters as $category => $filter) {
-		// 		$this->db->where_in($category, $filter);
-		// 	}
-		// }
+		$this->db->select("vw_drug_list.name as drug,sum(total) as total   ", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				if((!is_array($filter)) && strlen($filter)<2){
+					continue;
+				}
+				$this->db->where_in($category, $filter);
+			}
+		}
+		
+		$this->db->join('vw_drug_list', 'tbl_consumption.drug_id = vw_drug_list.id','inner');
+		$this->db->join('tbl_regimen_drug', 'tbl_regimen_drug.drug_id = vw_drug_list.id','inner');
+
 		$this->db->group_by('drug');
 		$this->db->order_by("total DESC");
 		$this->db->limit("20");
-		$query = $this->db->get('dsh_consumption');
+		$query = $this->db->get('tbl_consumption');
 		$results = $query->result_array();
 
 		foreach ($results as $result) {
@@ -427,6 +434,48 @@ class Dashboard_model extends CI_Model {
 			array(
 				'type' => 'column', 
 				'name' => 'Drug',
+				'data' => $data
+			))
+		, 'columns' => $columns);
+
+	} 
+
+	public function get_drug_consumption($filters){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("CONCAT_WS('/', period_month, period_year) as period,sum(total) as total", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				// if($category =='regimen_id'){
+				// 	$this->db->where($category,$filter);
+				// 	continue;
+				// }
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->join('tbl_drug', 'tbl_consumption.drug_id = tbl_drug.id','inner');
+		$this->db->join('tbl_regimen_drug', 'tbl_regimen_drug.drug_id = tbl_drug.id','inner');
+
+
+		$this->db->group_by('period');
+		$this->db->order_by("period_year ASC, FIELD( period_month, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' )");
+
+		$query = $this->db->get('tbl_consumption');
+		$results = $query->result_array();
+
+		foreach ($results as $result) {
+			array_push($data, $result['total']);
+		}
+
+		foreach ($results as $result) {
+			array_push($columns, $result['period']);
+		}
+
+		return array('main' =>  array(
+			array(
+				'type' => 'column', 
+				'name' => 'period',
 				'data' => $data
 			))
 		, 'columns' => $columns);

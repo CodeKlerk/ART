@@ -4,7 +4,7 @@
 		$.getJSON("Dashboard/get_regimens", function(jsonData){
 			cb = '';
 			$.each(jsonData, function(i,data){
-				cb+='<option value="#'+data.id+'">'+data.name+'</option>';
+				cb+='<option value="'+data.id+'">'+data.name+'</option>';
 			});
 			$("#single_regimen_filter").append(cb);
 		});

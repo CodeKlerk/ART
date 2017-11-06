@@ -102,23 +102,17 @@ class Dashboard extends MX_Controller {
 		}else if($chartname == 'drug_summary_chart'){
 			$main_data = $this->dashboard_model->get_top_commodities($filters);
 		}else if($chartname == 'drug_regimen_consumption_chart'){
-			$main_data = $this->dashboard_model->get_top_commodities($filters);
+			$main_data = $this->dashboard_model->get_regimen_top_commodities($filters);
 		}else if($chartname == 'regimen_patients_counties_chart'){
 			$main_data = $this->dashboard_model->get_regimen_patients_by_county($filters);
 		}else if($chartname == 'drug_consumption_chart'){
-
-			// $main_data = $this->dashboard_model->get_drug_consumption($filters);
-			   $json = '{"main":[{"type":"column","name":"Consumption","data":["72098","72622","72852","72957","75239","76129","77730","78112","78037","78083","78446","78739","78775","79082","79221","79812","80536","81088","81444"]}],"columns":["Jan\/2016","Feb\/2016","Mar\/2016","Apr\/2016","May\/2016","Jun\/2016","Jul\/2016","Aug\/2016","Sep\/2016","Oct\/2016","Nov\/2016","Dec\/2016","Jan\/2017","Feb\/2017","Mar\/2017","Apr\/2017","May\/2017","Jun\/2017","Jul\/2017"]}';
-			   $main_data = json_decode($json,true);
-			   // var_dump($main_data);die;
+			$main_data = $this->dashboard_model->get_drug_consumption($filters);
 		}else if($chartname == 'adt_version_distribution_chart'){
 
 			// $main_data = $this->dashboard_model->get_drug_consumption($filters);
 			   $json = '{"main":[{"name": "Installed Sites","y": 159}, {"name": "Sites not installed","y": 266}]}';
 			   $main_data = json_decode($json,true);
-			   // var_dump($main_data);die;
 		}
-		// 
 		return $main_data;
 	}
 
