@@ -451,10 +451,10 @@ class Dashboard_model extends CI_Model {
 		$this->db->select("CONCAT_WS('/', period_month, period_year) as period,sum(total) as total", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
-				// if($category =='regimen_id'){
-				// 	$this->db->where($category,$filter);
-				// 	continue;
-				// }
+				if($category =='regimen_id'){
+					$this->db->where('tbl_regimen_drug.regimen_id',$filter);
+					continue;
+				}
 				$this->db->where_in($category, $filter);
 			}
 		}

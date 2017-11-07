@@ -283,11 +283,11 @@ $config['regimen_patients_counties_chart_source'] = 'Source: www.nascop.org';
 $config['regimen_patients_counties_chart_has_drilldown'] = FALSE;
 $config['regimen_patients_counties_chart_xaxis_title'] = 'Drugs';
 $config['regimen_patients_counties_chart_view_name'] = 'commodities';
-$config['regimen_patients_counties_chart_filters'] = array('data_year', 'county', 'regimen');
+$config['regimen_patients_counties_chart_filters'] = array('data_year','data_month', 'county', 'regimen');
 $config['regimen_patients_counties_chart_filters_default'] = array(
 	'data_year' => array('2016','2017'), 
 	'county' => array('baringo','bomet','bungoma','busia','elgeyo marakwet','embu','garissa','homa bay','isiolo','kajiado','kakamega','kericho','kiambu','kilifi','kirinyaga','kisii','kisumu','kitui','kwale','laikipia','lamu','machakos','makueni','mandera','marsabit','meru','migori','mombasa','muranga','nairobi','nakuru','nandi','narok','nyamira','nyandarua','nyeri','samburu','siaya','taita taveta','tana river','tharaka nithi','trans nzoia','turkana','uasin gishu','vihiga','wajir','west pokot'), 
-	// 'data_month' => array('Jun'),
+	'data_month' => array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
 	'regimen' => array('AF3C | d4T + 3TC + ABC')
 );
 
@@ -303,6 +303,6 @@ $config['drug_consumption_chart_view_name'] = 'commodities';
 $config['drug_consumption_chart_filters'] = array('period_year','regimen_id ', 'period_month', 'sub_county');
 $config['drug_consumption_chart_filters_default'] = array(
 	'period_year' => array('2017','2016'),
-	'regimen_id' => array('0')
+	'regimen_id' => 0
 
 );
