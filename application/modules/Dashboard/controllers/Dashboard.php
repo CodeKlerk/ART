@@ -108,7 +108,6 @@ class Dashboard extends MX_Controller {
 		}else if($chartname == 'drug_consumption_chart'){
 			$main_data = $this->dashboard_model->get_drug_consumption($filters);
 		}else if($chartname == 'adt_version_distribution_chart'){
-
 			// $main_data = $this->dashboard_model->get_drug_consumption($filters);
 			   $json = '{"main":[{"name": "Installed Sites","y": 159}, {"name": "Sites not installed","y": 266}]}';
 			   $main_data = json_decode($json,true);

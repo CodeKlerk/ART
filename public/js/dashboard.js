@@ -49,6 +49,8 @@ $(function() {
         /*Set filters*/
         filters['data_month'] = $("#filter_month").val();
         filters['data_year'] = $("#filter_year").val();
+        filters['data_date'] = $("#filter_year").val()+ '-'+ $("#filter_month").val();
+
         filters['county'] = $(".county_filter").val();
         filters['regimen_id'] = $("#regimen_filter").val();
 
@@ -83,6 +85,14 @@ $(function() {
             });  
 
           });
+
+        $.getJSON("Dashboard/get_counties", function(jsonData){
+        cb = '';
+        $.each(jsonData, function(i,data){
+            cb+='<option value="'+data.name+'">'+data.name+'</option>';
+        });
+        $(".county_filter").append(cb);
+    });
 
 
 });

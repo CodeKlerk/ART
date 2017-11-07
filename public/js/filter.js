@@ -15,6 +15,7 @@ $(function() {
             'filter_item' : $("#filter_item").val(),
             'filter_year' : $("#filter_year").val(),
             'filter_month' : $("#filter_month").val()
+            'data_date' : $("#filter_year").val()+ '-'+ $("#filter_month").val()
         }
         /*Post request*/
         $.post(filterURL, request_data, function(response_data){
@@ -32,12 +33,4 @@ $(function() {
         $("#filter_month").val($(this).data('value'))
     });
     
-
-    $.getJSON("Dashboard/get_counties", function(jsonData){
-        cb = '';
-        $.each(jsonData, function(i,data){
-            cb+='<option value="'+data.name+'">'+data.name+'</option>';
-        });
-        $(".county_filter").append(cb);
-    });
 });
