@@ -362,7 +362,7 @@ class Dashboard_model extends CI_Model {
 		$this->db->order_by('active_patients', 'DESC');
 		$query = $this->db->get('dsh_site');
 		return array('main' => $query->result_array(), 'columns' => $columns);
-		
+
 	}
 
 	public function get_adt_site_summary_numbers($filters){
@@ -377,7 +377,7 @@ class Dashboard_model extends CI_Model {
 		$this->db->order_by('active_patients', 'DESC');
 		$query = $this->db->get('dsh_site');
 		return array('main' => $query->result_array(), 'columns' => $columns);
-		
+
 	}
 
 
@@ -509,6 +509,9 @@ class Dashboard_model extends CI_Model {
 		$this->db->select("county, count(county) as total  ", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
+				if(strlen($filter)<2){
+					continue;
+				}
 				$this->db->where_in($category, $filter);
 			}
 		}
