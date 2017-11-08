@@ -11,7 +11,6 @@
 						<div id="adt_version_distribution_chart"></div>
 					</div>					
 					<div class="chart-notes">
-						Filtered By: <span class="adt_site_distribution_heading"></span>
 					</div>
 				</div>
 			</div>
@@ -31,7 +30,6 @@
 					</div>
 
 					<div class="chart-notes">
-						Filtered By: <span class="adt_site_distribution_heading"></span>
 					</div>
 				</div>
 			</div>
@@ -53,7 +51,6 @@
 
 
 					<div class="chart-notes">
-						Filtered By: <span class="adt_site_distribution_heading"></span>
 					</div>
 				</div>
 			</div>
@@ -76,6 +73,37 @@
 				</div>
 			</div>
 
+			<div class="col-sm-4">
+				<div class="chart-wrapper">
+					<div class="chart-title">
+						Sites with Auto Backup <span class="backup_sites"></span>/<span class="total_sites"></span>
+					</div>
+
+					<div class="chart-notes">
+						<div id="adt_installs_target_chart"></div>
+						<table class="table">
+							<thead>
+								<th>#</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Total Facilities</td>
+									<td>3232</td>
+								</tr>
+								<tr>
+									<td>Central Sites</td>
+									<td>322</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="chart-notes">
+					</div>
+				</div>
+			</div>
+
 
 			<div class="col-sm-12">
 				<!--adt_site_distribution_chart-->
@@ -87,7 +115,6 @@
 						<div id="adt_site_distribution_chart"></div>
 					</div>
 					<div class="chart-notes">
-						Filtered By: <span class="adt_site_distribution_heading"></span>
 					</div>
 				</div>
 			</div>
@@ -103,7 +130,6 @@
 						<div id="adt_site_distribution_table"></div>
 					</div>
 					<div class="chart-notes">
-						Filtered By: <span class="adt_site_distribution_heading"></span>
 					</div>
 				</div>
 			</div>

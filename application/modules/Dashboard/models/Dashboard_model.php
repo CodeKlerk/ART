@@ -365,6 +365,21 @@ class Dashboard_model extends CI_Model {
 	
 	}
 
+public function get_adt_site_summary_numbers($filters){
+		$columns = array();
+
+		$this->db->select("facility, county, subcounty, partner, installed, version, internet, backup, active_patients", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->order_by('active_patients', 'DESC');
+		$query = $this->db->get('dsh_site');
+		return array('main' => $query->result_array(), 'columns' => $columns);
+	
+	}
+
 
 	public function get_regimen_patients($filters){
 		$columns = array();
