@@ -108,9 +108,7 @@ class Dashboard extends MX_Controller {
 		}else if($chartname == 'drug_consumption_chart'){
 			$main_data = $this->dashboard_model->get_drug_consumption($filters);
 		}else if($chartname == 'adt_version_distribution_chart'){
-			// $main_data = $this->dashboard_model->get_drug_consumption($filters);
-			   $json = '{"main":[{"name": "Installed Sites","y": 159}, {"name": "Sites not installed","y": 266}]}';
-			   $main_data = json_decode($json,true);
+			$main_data = $this->dashboard_model->get_adt_versions_summary($filters);
 		}
 		return $main_data;
 	}
@@ -128,5 +126,15 @@ class Dashboard extends MX_Controller {
 		echo json_encode($counties);
 
 	}
+
+	function get_sites(){
+		$counties = $this->dashboard_model->get_adt_sites_summary();
+		header('Content-Type: application/json');
+		echo json_encode($counties);
+
+	}
+
+
+	
 	
 }

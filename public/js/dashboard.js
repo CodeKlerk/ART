@@ -86,12 +86,23 @@ $(function() {
 
           });
 
-        $.getJSON("Dashboard/get_counties", function(jsonData){
+    $.getJSON("Dashboard/get_counties", function(jsonData){
         cb = '';
         $.each(jsonData, function(i,data){
             cb+='<option value="'+data.name+'">'+data.name+'</option>';
         });
         $(".county_filter").append(cb);
+    });
+
+
+    $.getJSON("Dashboard/get_sites", function(jsonData){
+        $('.total_sites').text(jsonData.total_sites);
+        $('.internet_sites').text(jsonData.internet_sites);
+        $('.internet_percentage').text(jsonData.internet_percentage+'%');
+        $('.backup_sites').text(jsonData.backup_sites);
+        $('.backup_percentage').text(jsonData.backup_percentage+'%');
+        $('.installed_sites').text(jsonData.installed);
+
     });
 
 

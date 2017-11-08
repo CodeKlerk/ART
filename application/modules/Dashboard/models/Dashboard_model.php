@@ -16,7 +16,6 @@ class Dashboard_model extends CI_Model {
 			SUM(IF(age_category = 'adult', total, NULL)) adult_total,
 			round(RAND()*150000)+650000  forecast 
 			", FALSE);
-		// var_dump($filters);die;
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				if ($category == 'data_date' && (strlen($filter)>3)){
@@ -519,6 +518,49 @@ class Dashboard_model extends CI_Model {
 
 	}
 
+	public function get_adt_sites_summary(){
+		$columns = array();
+		$data = array();
+
+		$this->db->select("count(county) total_sites, 
+			round(SUM(case when installed = 'yes' then 1 else 0 end)) installed, 
+			round(SUM(case when installed = 'no' then 1 else 0 end)) not_yet,
+			SUM(case when backup = 'yes' then 1 else 0 end) backup_sites,
+			SUM(case when backup = 'no' then 1 else 0 end) no_backup_sites,
+			SUM(case when internet = 'yes' then 1 else 0 end) internet_sites,
+			SUM(case when internet = 'no' then 1 else 0 end) no_internet_sites,
+			
+			round(SUM(case when internet = 'yes' then 1 else 0 end)/count(county) * 100) internet_percentage, 
+			round(SUM(case when backup = 'yes' then 1 else 0 end)/count(county) * 100) backup_percentage
+			
+
+
+			", FALSE);
+		$query = $this->db->get('dsh_site');
+		$results = $query->result_array()[0];
+		return $results;
+	}
+
+	public function get_adt_versions_summary(){	
+
+		$columns = array();
+		$data = array();
+
+		$this->db->select("version as name,count(version) as y", FALSE);
+		if(!empty($filters)){
+			foreach ($filters as $category => $filter) {
+				$this->db->where_in($category, $filter);
+			}
+		}
+		$this->db->group_by('name');
+		$this->db->order_by("y DESC");
+		$query = $this->db->get('dsh_site');
+		$results = $query->result_array();
+		return array('main'=>$results);
+
+	}
+	
+
 	public function get_regimens(){
 		$columns = array();
 		$data = array();
@@ -527,7 +569,6 @@ class Dashboard_model extends CI_Model {
 
 		$query = $this->db->get('tbl_regimen');
 		$results = $query->result_array();
-
 		return $results;
 
 	}

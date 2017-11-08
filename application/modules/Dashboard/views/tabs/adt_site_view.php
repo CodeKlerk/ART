@@ -18,7 +18,7 @@
 			<div class="col-sm-4">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						Sites with Auto Backup 7/425
+						Sites with Internet <span class="internet_sites"></span>/<span class="total_sites"></span>
 					</div>
 					<div class="progress blue">
 						<span class="progress-left">
@@ -27,7 +27,7 @@
 						<span class="progress-right">
 							<span class="progress-bar"></span>
 						</span>
-						<div class="progress-value">1.16%</div>
+						<div class="progress-value internet_percentage"></div>
 					</div>
 
 					<div class="chart-notes">
@@ -39,7 +39,7 @@
 			<div class="col-sm-4">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						Sites with Auto Backup 71/425
+						Sites with Auto Backup <span class="backup_sites"></span>/<span class="total_sites"></span>
 					</div>
 					<div class="progress yellow">
 						<span class="progress-left">
@@ -48,7 +48,7 @@
 						<span class="progress-right">
 							<span class="progress-bar"></span>
 						</span>
-						<div class="progress-value">90%</div>
+						<div class="progress-value backup_percentage">90%</div>
 					</div>
 
 
@@ -69,7 +69,7 @@
 					</div>
 					<div class="tile-footer">
 						<h4>
-							<span class="pct-counter">350</span> ADT installs
+							<span class="pct-counter installed_sites"></span> ADT installs
 						</h4>
 						<!-- <span>so far in our blog and our website</span> -->
 					</div>
