@@ -447,7 +447,7 @@ class Dashboard_model extends CI_Model {
 		$columns = array();
 		$data = array();
 
-		$this->db->select("CONCAT_WS('/', period_month, period_year) as period,sum(total) as total", FALSE);
+		$this->db->select("CONCAT_WS('/', period_months, period_year) as period,sum(total) as total", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				if($category =='regimen_id'){

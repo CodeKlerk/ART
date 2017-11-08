@@ -14,14 +14,14 @@
             lang: {
               decimalPoint: '.',
               thousandsSep: ','
-            },
-        });
+          },
+      });
 
         Highcharts.chart(chartDIV, {
             chart: {
                 type: 'bar'
             },
-            colors: ['green', 'red', 'blue'],
+            colors: ['#5cb85c', '#f0ad4e', '#5bc0de'],
             title: {
                 text: '<?php echo $chart_title; ?>'
             },
@@ -50,6 +50,11 @@
                     width: 2    
                 }]
             },
+            // tooltip: {
+            //     headerFormat: '<b>{point.x}</b><br/>',
+            //     pointFormat: '{series.name}: {point.y}<br/>% contribution: {point.percentage:.1f}%'
+            // },
+
             legend: {
                 reversed: true
             },

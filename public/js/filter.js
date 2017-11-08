@@ -14,7 +14,7 @@ $(function() {
             'filter_type' : $("#filter_item").data('filter_type'),
             'filter_item' : $("#filter_item").val(),
             'filter_year' : $("#filter_year").val(),
-            'filter_month' : $("#filter_month").val()
+            'filter_month' : $("#filter_month").val(),
             'data_date' : $("#filter_year").val()+ '-'+ $("#filter_month").val()
         }
         /*Post request*/
