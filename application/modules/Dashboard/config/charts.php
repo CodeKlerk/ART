@@ -246,8 +246,8 @@ $config['adt_site_distribution_table_filters_default'] = array();
 
 /*regimen_patient_chart*/
 $config['regimen_patient_chart_chartview'] = 'charts/stacked_column_view';
-$config['regimen_patient_chart_title'] = 'Regimens by patients';
-$config['regimen_patient_chart_yaxis_title'] = 'Consumption';
+$config['regimen_patient_chart_title'] = 'Patients on Regimens';
+$config['regimen_patient_chart_yaxis_title'] = 'No. of Patients';
 $config['regimen_patient_chart_source'] = 'Source: www.nascop.org';
 $config['regimen_patient_chart_has_drilldown'] = FALSE;
 $config['regimen_patient_chart_xaxis_title'] = 'Drugs';
@@ -255,9 +255,7 @@ $config['regimen_patient_chart_view_name'] = 'commodities';
 $config['regimen_patient_chart_filters'] = array('data_year', 'data_month', 'county');
 $config['regimen_patient_chart_filters_default'] = array(
 	'county' => array('baringo','bomet','bungoma','busia','elgeyo marakwet','embu','garissa','homa bay','isiolo','kajiado','kakamega','kericho','kiambu','kilifi','kirinyaga','kisii','kisumu','kitui','kwale','laikipia','lamu','machakos','makueni','mandera','marsabit','meru','migori','mombasa','muranga','nairobi','nakuru','nandi','narok','nyamira','nyandarua','nyeri','samburu','siaya','taita taveta','tana river','tharaka nithi','trans nzoia','turkana','uasin gishu','vihiga','wajir','west pokot'), 
-	'data_year' => array('2017','2016'), 
-	'data_month' => array('Jun')
-);
+	'data_date'=> '2017-Jun');
 
 // drug_regimen_consumption_chart
 

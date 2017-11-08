@@ -36,7 +36,7 @@
 						Regimens
 					</div>
 					<div class="chart-stage">
-						<div id="drug_summary_chart"></div>
+						<div id="regimen_patient_chart"></div>
 					</div>
 					<div class="chart-notes">
 						Filtered By: <span class="commodity_analysis_heading"></span>

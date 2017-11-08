@@ -365,7 +365,7 @@ class Dashboard_model extends CI_Model {
 	}
 
 
-	public function get_top_commodities($filters){
+	public function get_regimen_patients($filters){
 		$columns = array();
 		$data = array();
 
@@ -374,8 +374,15 @@ class Dashboard_model extends CI_Model {
 			foreach ($filters as $category => $filter) {
 				if((!is_array($filter)) && strlen($filter)<2){
 					continue;
+
 				}
+				if ($category == 'data_date' && (strlen($filter)>3)){
+					$this->db->where("data_date <=",date('Y-m',strtotime($filter)).'-01');
+					continue;
+				}
+
 				$this->db->where_in($category, $filter);
+
 			}
 		}
 		$this->db->group_by('regimen');
