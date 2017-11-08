@@ -9,9 +9,9 @@
 		foreach ($row_data as $key => $value) {
 			//Header
 			if($count == 0){
-				$thead .= "<th>".$key."</th>";
+				$thead .= "<th>".ucwords($key)."</th>";
 			}
-			$tbody .= "<td>".$value."</td>";
+			$tbody .= "<td>".ucwords($value)."</td>";
 		}
 		$tbody .= "</tr>";
 		$count++;
