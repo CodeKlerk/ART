@@ -362,10 +362,10 @@ class Dashboard_model extends CI_Model {
 		$this->db->order_by('active_patients', 'DESC');
 		$query = $this->db->get('dsh_site');
 		return array('main' => $query->result_array(), 'columns' => $columns);
-	
+		
 	}
 
-public function get_adt_site_summary_numbers($filters){
+	public function get_adt_site_summary_numbers($filters){
 		$columns = array();
 
 		$this->db->select("facility, county, subcounty, partner, installed, version, internet, backup, active_patients", FALSE);
@@ -377,7 +377,7 @@ public function get_adt_site_summary_numbers($filters){
 		$this->db->order_by('active_patients', 'DESC');
 		$query = $this->db->get('dsh_site');
 		return array('main' => $query->result_array(), 'columns' => $columns);
-	
+		
 	}
 
 
@@ -429,23 +429,25 @@ public function get_adt_site_summary_numbers($filters){
 		$columns = array();
 		$data = array();
 
-		$this->db->select("vw_drug_list.name as drug,sum(total) as total   ", FALSE);
+		$this->db->select("drug, sum(total) as total", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				if((!is_array($filter)) && strlen($filter)<2){
 					continue;
 				}
+				if ($category == 'data_date' && (strlen($filter)>3)){
+					$this->db->where("data_date <=",date('Y-m',strtotime($filter)).'-01');
+					continue;
+				}
+
 				$this->db->where_in($category, $filter);
 			}
 		}
 
-		$this->db->join('vw_drug_list', 'tbl_consumption.drug_id = vw_drug_list.id','inner');
-		$this->db->join('tbl_regimen_drug', 'tbl_regimen_drug.drug_id = vw_drug_list.id','inner');
-
 		$this->db->group_by('drug');
 		$this->db->order_by("total DESC");
 		$this->db->limit("20");
-		$query = $this->db->get('tbl_consumption');
+		$query = $this->db->get('vw_regimen_drug');
 		$results = $query->result_array();
 
 		foreach ($results as $result) {
@@ -466,28 +468,20 @@ public function get_adt_site_summary_numbers($filters){
 
 	} 
 
-	public function get_drug_consumption($filters){
+	public function get_regimen_consumption($filters){
+
 		$columns = array();
 		$data = array();
 
-		$this->db->select("CONCAT_WS('/', period_months, period_year) as period,sum(total) as total", FALSE);
+		$this->db->select("CONCAT_WS('/', data_month, data_year) period, sum(total) as total", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
-				if($category =='regimen_id'){
-					$this->db->where('tbl_regimen_drug.regimen_id',$filter);
-					continue;
-				}
 				$this->db->where_in($category, $filter);
 			}
 		}
-		$this->db->join('tbl_drug', 'tbl_consumption.drug_id = tbl_drug.id','inner');
-		$this->db->join('tbl_regimen_drug', 'tbl_regimen_drug.drug_id = tbl_drug.id','inner');
-
-
 		$this->db->group_by('period');
-		$this->db->order_by("period_year ASC, FIELD( period_month, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' )");
-
-		$query = $this->db->get('tbl_consumption');
+		$this->db->order_by("data_date ASC");
+		$query = $this->db->get('vw_regimen_drug');
 		$results = $query->result_array();
 
 		foreach ($results as $result) {
@@ -604,7 +598,7 @@ public function get_adt_site_summary_numbers($filters){
 		$columns = array();
 		$data = array();
 
-		$this->db->select("id, name", FALSE);
+		$this->db->select("CONCAT(code,' | ',name) as name", FALSE);
 
 		$query = $this->db->get('tbl_regimen');
 		$results = $query->result_array();

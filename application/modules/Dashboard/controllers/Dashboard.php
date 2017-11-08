@@ -102,14 +102,17 @@ class Dashboard extends MX_Controller {
 		}else if($chartname == 'regimen_patient_chart'){
 			$main_data = $this->dashboard_model->get_regimen_patients($filters);
 		}else if($chartname == 'drug_regimen_consumption_chart'){
-			$main_data = $this->dashboard_model->get_regimen_top_commodities($filters);
+			$main_data = $this->dashboard_model->get_regimen_top_commodities($filters);		
 		}else if($chartname == 'regimen_patients_counties_chart'){
 			$main_data = $this->dashboard_model->get_regimen_patients_by_county($filters);
 		}else if($chartname == 'drug_consumption_chart'){
-			$main_data = $this->dashboard_model->get_drug_consumption($filters);
+			$main_data = $this->dashboard_model->get_regimen_consumption($filters);
 		}else if($chartname == 'adt_version_distribution_chart'){
 			$main_data = $this->dashboard_model->get_adt_versions_summary($filters);
+		}else if($chartname == 'adt_sites_overview_chart'){
+			$main_data = $this->dashboard_model->get_adt_versions_summary($filters);
 		}
+		
 		return $main_data;
 	}
 

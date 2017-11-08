@@ -1,80 +1,140 @@
 <!--chart_container-->
-<div id="<?php echo $chart_name; ?>_container"></div>
+<div id="<?php echo $chart_name; ?>_container" style="height:70px;"></div>
 
 <!--highcharts_configuration-->
 <script type="text/javascript">
-    $(function(){
-        var chartDIV = '<?php echo $chart_name."_container"; ?>'
+    $(function () {
 
-        Highcharts.setOptions({
-            chart: {
-                inverted: true,
-                marginLeft: 135,
-                type: 'bullet'
-            },
-            title: {
-                text: "<?php echo $chart_title; ?>"
-            },
-            legend: {
-                enabled: false
-            },
-            yAxis: {
-                gridLineWidth: 0
-            },
-            plotOptions: {
-                series: {
-                    pointPadding: 0.25,
-                    borderWidth: 0,
-                    color: '#000',
-                    targetOptions: {
-                        width: '200%'
-                    }
+    /**
+     * Highcharts Linear-Gauge series plugin
+     */
+    (function (H) {
+        var defaultPlotOptions = H.getOptions().plotOptions,
+            columnType = H.seriesTypes.column,
+            wrap = H.wrap,
+            each = H.each;
+
+        defaultPlotOptions.lineargauge = H.merge(defaultPlotOptions.column, {});
+        H.seriesTypes.lineargauge = H.extendClass(columnType, {
+            type: 'lineargauge',
+            //inverted: true,
+            setVisible: function () {
+                columnType.prototype.setVisible.apply(this, arguments);
+                if (this.markLine) {
+                    this.markLine[this.visible ? 'show' : 'hide']();
                 }
             },
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
+            drawPoints: function () {
+                // Draw the Column like always
+                columnType.prototype.drawPoints.apply(this, arguments);
+
+                // Add a Marker
+                var series = this,
+                    chart = this.chart,
+                    inverted = chart.inverted,
+                    xAxis = this.xAxis,
+                    yAxis = this.yAxis,
+                    point = this.points[0], // we know there is only 1 point
+                    markLine = this.markLine,
+                    ani = markLine ? 'animate' : 'attr';
+
+                // Hide column
+                point.graphic.hide();
+
+                if (!markLine) {
+                    var path = inverted ? ['M', 0, 0, 'L', -3, -3, 'L', 3, -3, 'L', 0, 0, 'L', 0, 0 + xAxis.len] : ['M', 0, 0, 'L', -3, -3, 'L', -3, 3,'L', 0, 0, 'L', xAxis.len, 0];
+                    markLine = this.markLine = chart.renderer.path(path)
+                        .attr({
+                            'fill': series.color,
+                            'stroke': series.color,
+                            'stroke-width': 1
+                        }).add();
+                }
+                markLine[ani]({
+                    translateX: inverted ? xAxis.left + yAxis.translate(point.y) : xAxis.left,
+                    translateY: inverted ? xAxis.top : yAxis.top + yAxis.len -  yAxis.translate(point.y)
+                });
             }
         });
+    }(Highcharts));
 
-
-
-        Highcharts.chart(chartDIV, {
-            xAxis: {
-                categories: ['<span class="hc-cat-title"><?php echo $chart_title; ?></span><br/>%']
+    $('<?php echo $chart_name."_container"; ?>').highcharts({
+        chart: {
+            type: 'lineargauge',
+            inverted: true
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            lineColor: '#C0C0C0',
+            labels: {
+                enabled: false
             },
-            yAxis: {
-                plotBands: [{
-                    from: 0,
-                    to: 20,
-                    color: '#666'
-                }, {
-                    from: 20,
-                    to: 25,
-                    color: '#999'
-                }, {
-                    from: 25,
-                    to: 100,
-                    color: '#bbb'
-                }],
-                labels: {
-                    format: '{value}%'
-                },
-                title: null
-            },
-            series: [{
-                data: [{
-                    y: 22,
-                    target: 27
-                }] 
-            }],
-    tooltip: {
-        pointFormat: '<b>{point.y}</b> (with target at {point.target})'
-    }
-});
+            tickLength: 0
+        },
+        yAxis: {
+            min: 0,
+            max: 100,
+            tickLength: 5,
+            tickWidth: 1,
+            tickColor: '#C0C0C0',
+            gridLineColor: '#C0C0C0',
+            gridLineWidth: 1,
+            minorTickInterval: 3,
+            minorTickWidth: 1,
+            minorTickLength: 3,
+            minorGridLineWidth: 0,
 
+            title: null,
+            labels: {
+                format: '{value}'
+            },
+            plotBands: [{
+                from: 0,
+                to: 92,
+                color: "rgba(0,255,0,0.5)"//Red
+            }]
+            // , {
+            //     from: 10,
+            //     to: 13,
+            //     color: 'rgba(255,255,0,0.5)'//Yellow
+            // }, {
+            //     from: 13,
+            //     to: 30,
+            //     color: 'rgba(0,255,0,0.5)'//Green
+            // }]
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },colors: [
+            '#F64747',
+            '#F9BF3B',
+            '#26C281'
+        ],
+        series: [{
+            data: [60],
+            color: '#000000',
+            dataLabels: {
+                enabled: true,
+                align: 'center',
+                format: '{point.y}',
+                y: 10
+            }
+        }]
+
+    },
+     // Add some life
+    function (chart) {
+        Highcharts.each(chart.series, function (serie) {
+            var point = serie.points[0];
+            point.update(92);
+        });
 
     });
-</script>        
+});
+
+</script>

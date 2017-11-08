@@ -54,7 +54,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<!-- <div class="col-sm-4">
 				<div class="tile-progress tile-primary">
 					<div class="tile-header">
 						<h3>ADT Sites</h3>
@@ -68,19 +68,20 @@
 						<h4>
 							<span class="pct-counter installed_sites"></span> ADT installs
 						</h4>
-						<!-- <span>so far in our blog and our website</span> -->
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="col-sm-4">
+			<div class="col-sm-8">
 				<div class="chart-wrapper">
 					<div class="chart-title">
 						Sites with Auto Backup <span class="backup_sites"></span>/<span class="total_sites"></span>
 					</div>
 
 					<div class="chart-notes">
-						<div id="adt_installs_target_chart"></div>
+						<div id="adt_sites_overview_chart" style=" max-width: 800px;
+    height: 85px;
+    margin: 1em auto;"></div>
 						<table class="table">
 							<thead>
 								<th>#</th>

@@ -9,7 +9,7 @@ charts['county'] = ['county_patient_distribution_chart', 'county_patient_distrib
 charts['subcounty'] = ['subcounty_patient_distribution_chart', 'subcounty_patient_distribution_table']
 charts['facility'] = ['facility_patient_distribution_chart', 'facility_patient_distribution_table']
 charts['partner_summary'] = ['partner_patient_distribution_chart', 'partner_patient_distribution_table']
-charts['adt_site'] = ['adt_version_distribution_chart','adt_site_distribution_chart', 'adt_site_distribution_table']
+charts['adt_site'] = ['adt_version_distribution_chart','adt_site_distribution_chart', 'adt_site_distribution_table','adt_sites_overview_chart']
 charts['commodity'] = ['regimen_patient_chart']
 charts['drug'] = ['drug_consumption_chart','drug_regimen_consumption_chart','regimen_patients_counties_chart']
 
@@ -28,7 +28,6 @@ $(function() {
     // on regimen change. load regimen page
     $("#single_regimen_filter").on("change", TabFilterHandler);
     $("#regimen_filter").on("change", TabFilterHandler);
-    // $("#single_regimen_filter, #regimen_filter").on("change", TabFilterHandler);
     
     /*Filter Month*/
     $(".filter-month").on("click", function(){
@@ -52,7 +51,7 @@ $(function() {
         filters['data_date'] = $("#filter_year").val()+ '-'+ $("#filter_month").val();
 
         filters['county'] = $(".county_filter").val();
-        filters['regimen_id'] = $("#regimen_filter").val();
+        filters['regimen'] = $("#regimen_filter").val();
 
 
 
@@ -76,7 +75,7 @@ $(function() {
               // /*clearSet filters*/
               clearfilters = {};
               // retain regimen id if set 
-              clearfilters['regimen_id'] = $("#regimen_filter").val();
+              clearfilters['regimen'] = $("#regimen_filter").val();
 
               /*Load Charts based on tab*/
               $.each(charts[tab], function(key, chartName) {
@@ -105,6 +104,14 @@ $(function() {
 
     });
 
+            $.getJSON("Dashboard/get_regimens", function(jsonData){
+            cb = '';
+            $.each(jsonData, function(i,data){
+            cb+='<option value="'+data.name+'">'+data.name+'</option>';
+            });
+            $("#regimen_filter,#single_regimen_filter").append(cb);
+        });
+
 
 });
 
@@ -131,6 +138,9 @@ function TabFilterHandler(e){
         //Reset filter identifier
         $("#filter_tab").val(tab)
         /*Load Charts*/
+        if (tab == 'drug'){
+            filters['regimen'] = $("#regimen_filter").val();
+        }
         $.each(charts[tab], function(key, chartName) {
             chartID = '#'+chartName
             LoadChart(chartID, chartURL, chartName, filters)

@@ -4,7 +4,7 @@
 		$.getJSON("Dashboard/get_regimens", function(jsonData){
 			cb = '';
 			$.each(jsonData, function(i,data){
-				cb+='<option value="'+data.id+'">'+data.name+'</option>';
+				cb+='<option value="'+data.name+'">'+data.name+'</option>';
 			});
 			$("#single_regimen_filter").append(cb);
 		});
@@ -12,7 +12,6 @@
 			
 		$("#single_regimen_filter").change(function(){
 		$("#regimen_filter").val($("#single_regimen_filter").val());
-
 			$("#main_tabs a[href='#drug']").trigger('click');
 		});
 
