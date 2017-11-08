@@ -61,8 +61,8 @@
 				<div class="tile-progress tile-primary">
 					<div class="tile-header">
 						<h3>ADT Sites</h3>
-						<span>ADT sites 433 <br />
-						central sites installed 172</span>
+						<span>ADT sites <span class="total_sites"></span> <br />
+						central sites installed <span class="installed_sites"></span></span>
 					</div>
 					<div class="tile-progressbar">
 						<span data-fill="65.5%" style="width: 65.5%;"></span>
