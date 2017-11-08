@@ -182,43 +182,15 @@ $config['partner_patient_distribution_table_filters_default'] = array(
 
 
 /*adt_version_distribution_chart*/
-$config['adt_version_distribution_chart_chartview'] = 'charts/pie_view';
-$config['adt_version_distribution_chart_title'] = 'ADT Site Numbers';
-$config['adt_version_distribution_chart_yaxis_title'] = '% of Sites';
+$config['adt_version_distribution_chart_chartview'] = 'charts/stacked_column_view';
+$config['adt_version_distribution_chart_title'] = 'ADT Versions intalled';
+$config['adt_version_distribution_chart_yaxis_title'] = 'No. of installs';
 $config['adt_version_distribution_chart_source'] = 'Source: www.nascop.org';
 $config['adt_version_distribution_chart_has_drilldown'] = FALSE;
 $config['adt_version_distribution_chart_xaxis_title'] = 'Sites';
 $config['adt_version_distribution_chart_view_name'] = 'dsh_site';
 $config['adt_version_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
 $config['adt_version_distribution_chart_filters_default'] = array();
-
-
-
-/*adt_version_distribution_chart*/
-$config['adt_version_distribution_chart_chartview'] = 'charts/pie_view';
-$config['adt_version_distribution_chart_title'] = 'ADT Site Numbers';
-$config['adt_version_distribution_chart_yaxis_title'] = '% of Sites';
-$config['adt_version_distribution_chart_source'] = 'Source: www.nascop.org';
-$config['adt_version_distribution_chart_has_drilldown'] = FALSE;
-$config['adt_version_distribution_chart_xaxis_title'] = 'Sites';
-$config['adt_version_distribution_chart_view_name'] = 'dsh_site';
-$config['adt_version_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
-$config['adt_version_distribution_chart_filters_default'] = array();
-
-
-
-/*adt_version_distribution_chart*/
-$config['adt_version_distribution_chart_chartview'] = 'charts/pie_view';
-$config['adt_version_distribution_chart_title'] = 'ADT Site Numbers';
-$config['adt_version_distribution_chart_yaxis_title'] = '% of Sites';
-$config['adt_version_distribution_chart_source'] = 'Source: www.nascop.org';
-$config['adt_version_distribution_chart_has_drilldown'] = FALSE;
-$config['adt_version_distribution_chart_xaxis_title'] = 'Sites';
-$config['adt_version_distribution_chart_view_name'] = 'dsh_site';
-$config['adt_version_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
-$config['adt_version_distribution_chart_filters_default'] = array();
-
-
 
 
 /*adt_site_distribution_chart*/

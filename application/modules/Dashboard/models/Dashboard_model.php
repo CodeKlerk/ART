@@ -362,6 +362,7 @@ class Dashboard_model extends CI_Model {
 		$this->db->order_by('active_patients', 'DESC');
 		$query = $this->db->get('dsh_site');
 		return array('main' => $query->result_array(), 'columns' => $columns);
+	
 	}
 
 
@@ -553,17 +554,33 @@ class Dashboard_model extends CI_Model {
 		$columns = array();
 		$data = array();
 
-		$this->db->select("version as name,count(version) as y", FALSE);
+		$this->db->select("version as name,count(version) as total", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
 			}
 		}
 		$this->db->group_by('name');
-		$this->db->order_by("y DESC");
+		$this->db->order_by("total DESC");
 		$query = $this->db->get('dsh_site');
 		$results = $query->result_array();
-		return array('main'=>$results);
+		// return array('main'=>$results);
+
+		foreach ($results as $result) {
+			array_push($data, $result['total']);
+		}
+
+		foreach ($results as $result) {
+			array_push($columns, $result['name']);
+		}
+
+		return array('main' =>  array(
+			array(
+				'type' => 'column', 
+				'name' => 'Version',
+				'data' => $data
+			))
+		, 'columns' => $columns);
 
 	}
 	

@@ -100,10 +100,8 @@ class Dashboard extends MX_Controller {
 		}else if($chartname == 'adt_site_distribution_table'){
 			$main_data = $this->dashboard_model->get_adt_site_distribution_numbers($filters);
 		}
-
 		else if($chartname == 'regimen_patient_chart'){
 			$main_data = $this->dashboard_model->get_regimen_patients($filters);
-
 		}else if($chartname == 'drug_regimen_consumption_chart'){
 			$main_data = $this->dashboard_model->get_regimen_top_commodities($filters);
 		}else if($chartname == 'regimen_patients_counties_chart'){
