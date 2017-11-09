@@ -255,15 +255,14 @@ $config['regimen_patients_counties_chart_xaxis_title'] = 'Drugs';
 $config['regimen_patients_counties_chart_view_name'] = 'commodities';
 $config['regimen_patients_counties_chart_filters'] = array('data_year','data_month', 'county', 'regimen');
 $config['regimen_patients_counties_chart_filters_default'] = array(
-	'county' => array('baringo','bomet','bungoma','busia','elgeyo marakwet','embu','garissa','homa bay','isiolo','kajiado','kakamega','kericho','kiambu','kilifi','kirinyaga','kisii','kisumu','kitui','kwale','laikipia','lamu','machakos','makueni','mandera','marsabit','meru','migori','mombasa','muranga','nairobi','nakuru','nandi','narok','nyamira','nyandarua','nyeri','samburu','siaya','taita taveta','tana river','tharaka nithi','trans nzoia','turkana','uasin gishu','vihiga','wajir','west pokot'), 
-	'data_month' => array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
-	'regimen' => array('')
+	'county' => '', 
+	'regimen' => ''
 );
 
 // drug_consumption_chart
 
 $config['drug_consumption_chart_chartview'] = 'charts/stacked_column_view';
-$config['drug_consumption_chart_title'] = 'Regimen Consumption view';
+$config['drug_consumption_chart_title'] = 'Regimen Drugs Consumption';
 $config['drug_consumption_chart_yaxis_title'] = 'Consumption';
 $config['drug_consumption_chart_source'] = 'Source: www.nascop.org';
 $config['drug_consumption_chart_has_drilldown'] = FALSE;
@@ -279,7 +278,7 @@ $config['drug_consumption_chart_filters_default'] = array(
 
 // adt_sites_overview_chart
 
-$config['adt_sites_overview_chart_chartview'] = 'charts/bullet_view';
+$config['adt_sites_overview_chart_chartview'] = 'charts/activitygauge_view';
 $config['adt_sites_overview_chart_title'] = 'ADT Installs Overview';
 $config['adt_sites_overview_chart_yaxis_title'] = 'Consumption';
 $config['adt_sites_overview_chart_source'] = 'Source: www.nascop.org';

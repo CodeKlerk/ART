@@ -9,7 +9,7 @@ charts['county'] = ['county_patient_distribution_chart', 'county_patient_distrib
 charts['subcounty'] = ['subcounty_patient_distribution_chart', 'subcounty_patient_distribution_table']
 charts['facility'] = ['facility_patient_distribution_chart', 'facility_patient_distribution_table']
 charts['partner_summary'] = ['partner_patient_distribution_chart', 'partner_patient_distribution_table']
-charts['adt_site'] = ['adt_version_distribution_chart','adt_site_distribution_chart', 'adt_site_distribution_table','adt_sites_overview_chart']
+charts['adt_site'] = ['adt_version_distribution_chart','adt_site_distribution_chart', 'adt_site_distribution_table']
 charts['commodity'] = ['regimen_patient_chart']
 charts['drug'] = ['drug_consumption_chart','drug_regimen_consumption_chart','regimen_patients_counties_chart']
 
@@ -95,22 +95,30 @@ $(function() {
 
 
     $.getJSON("Dashboard/get_sites", function(jsonData){
-        $('.total_sites').text(jsonData.total_sites);
-        $('.internet_sites').text(jsonData.internet_sites);
-        $('.internet_percentage').text(jsonData.internet_percentage+'%');
-        $('.backup_sites').text(jsonData.backup_sites);
-        $('.backup_percentage').text(jsonData.backup_percentage+'%');
-        $('.installed_sites').text(jsonData.installed);
+        $('.total_sites').text(jsonData.summary.total_sites);
+        $('.internet_sites').text(jsonData.summary.internet_sites);
+        $('.internet_percentage').text(jsonData.summary.internet_percentage+'%');
+        $('.backup_sites').text(jsonData.summary.backup_sites);
+        $('.backup_percentage').text(jsonData.summary.backup_percentage+'%');
+        $('.installed_sites').text(jsonData.summary.installed);
 
+        $('.total_sites_no').text(jsonData.overview.total_facilities);
+        $('.ordering_sites_no').text(jsonData.overview.ordering_sites);
+
+
+        $('.facilities_percentage').text(jsonData.overview.ordering_sites_percentage);
+        $('.facilities_percentage').css("width:",jsonData.overview.ordering_sites_percentage);
     });
 
-            $.getJSON("Dashboard/get_regimens", function(jsonData){
-            cb = '';
-            $.each(jsonData, function(i,data){
+
+
+    $.getJSON("Dashboard/get_regimens", function(jsonData){
+        cb = '';
+        $.each(jsonData, function(i,data){
             cb+='<option value="'+data.name+'">'+data.name+'</option>';
-            });
-            $("#regimen_filter,#single_regimen_filter").append(cb);
         });
+        $("#regimen_filter,#single_regimen_filter").append(cb);
+    });
 
 
 });

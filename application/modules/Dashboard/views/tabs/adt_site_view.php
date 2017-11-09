@@ -54,35 +54,15 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-sm-4">
-				<div class="tile-progress tile-primary">
-					<div class="tile-header">
-						<h3>ADT Sites</h3>
-						<span>ADT sites <span class="total_sites"></span> <br />
-						central sites installed <span class="installed_sites"></span></span>
-					</div>
-					<div class="tile-progressbar">
-						<span data-fill="65.5%" style="width: 65.5%;"></span>
-					</div>
-					<div class="tile-footer">
-						<h4>
-							<span class="pct-counter installed_sites"></span> ADT installs
-						</h4>
-					</div>
-				</div>
-			</div> -->
-
-			<div class="col-sm-8">
+				<div class="col-sm-8">
 				<div class="chart-wrapper">
 					<div class="chart-title">
 						Sites with Auto Backup <span class="backup_sites"></span>/<span class="total_sites"></span>
 					</div>
 
 					<div class="chart-notes">
-						<div id="adt_sites_overview_chart" style=" max-width: 800px;
-    height: 85px;
-    margin: 1em auto;"></div>
-						<table class="table">
+						<div id="adt_sites_overview_chart"></div>
+						<table class="table adt_sites_overview">
 							<thead>
 								<th>#</th>
 								<th></th>
@@ -90,11 +70,11 @@
 							<tbody>
 								<tr>
 									<td>Total Facilities</td>
-									<td>3232</td>
+									<td class="total_sites_no"></td>
 								</tr>
 								<tr>
-									<td>Central Sites</td>
-									<td>322</td>
+									<td>Ordering Sites</td>
+									<td class="ordering_sites_no"></td>
 								</tr>
 							</tbody>
 						</table>

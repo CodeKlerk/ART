@@ -25,7 +25,7 @@
 			<div class="col-sm-12">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						Drug consumption
+						Regimen Drugs consumption
 					</div>
 					<div class="chart-stage">
 						<div id="drug_consumption_chart"></div>

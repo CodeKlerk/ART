@@ -97,6 +97,7 @@ class Dashboard extends MX_Controller {
 			$main_data = $this->dashboard_model->get_partner_patient_distribution_numbers($filters);
 		}else if($chartname == 'adt_site_distribution_chart'){
 			$main_data = $this->dashboard_model->get_adt_site_distribution($filters);
+			// echo json_encode($main_data);die;
 		}else if($chartname == 'adt_site_distribution_table'){
 			$main_data = $this->dashboard_model->get_adt_site_distribution_numbers($filters);
 		}else if($chartname == 'regimen_patient_chart'){
@@ -131,9 +132,12 @@ class Dashboard extends MX_Controller {
 	}
 
 	function get_sites(){
-		$counties = $this->dashboard_model->get_adt_sites_summary();
+		$sites = array();
+		$sites['summary'] = $this->dashboard_model->get_adt_sites_summary();
+		$sites['overview'] = $this->dashboard_model->get_adt_site_overview();
+
 		header('Content-Type: application/json');
-		echo json_encode($counties);
+		echo json_encode($sites);
 
 	}
 

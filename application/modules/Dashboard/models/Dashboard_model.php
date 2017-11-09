@@ -315,20 +315,21 @@ class Dashboard_model extends CI_Model {
 	public function get_adt_site_distribution($filters){
 		$columns = array();
 
-		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),LOWER(SUBSTRING(county, 2))) name, 
-			count(county) total_sites, 
-			round(SUM(case when installed = 'yes' then 1 else 0 end)/count(county) * 100) installed, 
-			round(SUM(case when installed = 'no' then 1 else 0 end)/count(county) * 100) not_yet,
-			SUM(case when installed = 'yes' then 1 else 0 end) installed_sites, 
-			SUM(case when installed = 'no' then 1 else 0 end) not_yet_installed_sites ", FALSE);
+		$this->db->select("CONCAT(UCASE(SUBSTRING(county, 1, 1)),
+		LOWER(SUBSTRING(county, 2))) name,
+		count(county) total_sites,
+		ROUND(SUM(case when installed = 'yes' then 1 else 0 end)/count(county)*100)  installed_percentage, 
+		(100 - (ROUND(SUM(case when installed = 'yes' then 1 else 0 end)/count(county)*100))) not_yet_percentage,
+		CONCAT('No. of Sites installed : ',SUM(case when installed = 'yes' then 1 else 0 end)) installed,
+		CONCAT('No. of Not installed sites : ',count(county) -SUM(case when installed = 'yes' then 1 else 0 end)) not_yet", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
 			}
 		}
-		$this->db->group_by('name');
-		$this->db->order_by('installed', 'DESC');
-		$query = $this->db->get('dsh_site');
+		$this->db->group_by('county');
+		$this->db->order_by('installed_percentage', 'DESC');
+		$query = $this->db->get('vw_facility');
 		$results = $query->result_array();
 
 		$data = array();
@@ -337,18 +338,39 @@ class Dashboard_model extends CI_Model {
 		foreach ($results as $result) {
 			array_push($columns, $result['name']);
 			foreach ($result as $key => $value) {
-				if($key == 'installed'){
-					$installed[] = $value;
-				}else if($key == 'not_yet'){
-					$not_yet[] = $value;
+				// var_dump($result);die;
+				if($key == 'installed_percentage'){
+			array_push($installed, array('y'=>$value,'otherdata'=>$result['installed']));
+				}else if($key == 'not_yet_percentage'){
+			array_push($not_yet, array('y'=>$value,'otherdata'=>$result['not_yet']));
+
 				}
 			}
 		}
-		$data[] = array('name' => 'Installed sites', 'data' => $installed);
-		$data[] = array('name' => 'Sites not installed', 'data' => $not_yet);
+		$data[] = array('name' => 'Percentage Installed sites', 'data' => $installed);
+		$data[] = array('name' => 'Percentage not installed', 'data' => $not_yet);
 
 		return array('main' => $data, 'columns' => $columns);
 	}
+
+
+
+	public function get_adt_site_overview(){
+		$columns = array();
+
+		$this->db->select("
+			count(*) as total_facilities,
+			round(SUM(case when category = 'central' then 1 else 0 end)) ordering_sites, 
+			SUM(case when category = 'satellite' then 1 else 0 end) satellite,
+			round(SUM(case when category = 'central' then 1 else 0 end)/count(*) * 100) ordering_sites_percentage,
+			round(SUM(case when category = 'satellite' then 1 else 0 end)/count(*) * 100) satellite_sites_percentage
+			", FALSE);
+		$query = $this->db->get('tbl_facility');
+		$result =  $query->result_array();
+		return $result[0];
+	}
+
+
 
 	public function get_adt_site_distribution_numbers($filters){
 		$columns = array();
@@ -473,7 +495,7 @@ class Dashboard_model extends CI_Model {
 		$columns = array();
 		$data = array();
 
-		$this->db->select("CONCAT_WS('/', data_month, data_year) period, sum(total) as total", FALSE);
+		$this->db->select("CONCAT_WS('/', data_month, data_year) period,drug, sum(total) as total", FALSE);
 		if(!empty($filters)){
 			foreach ($filters as $category => $filter) {
 				$this->db->where_in($category, $filter);
@@ -490,6 +512,9 @@ class Dashboard_model extends CI_Model {
 
 		foreach ($results as $result) {
 			array_push($columns, $result['period']);
+		}
+		foreach ($results as $result) {
+			array_push($columns, $result['drug']);
 		}
 
 		return array('main' =>  array(
