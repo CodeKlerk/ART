@@ -46,7 +46,7 @@
 
 	    	   dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {extend:'copy',title:'ADT Sites'}, {extend:'csv',title:'ADT Sites'}, {extend:'excel',title:'ADT Sites'}, {extend:'pdf',title:'ADT Sites'}, {extend:'print',title:'ADT Sites'}
         ]
 
 	    });

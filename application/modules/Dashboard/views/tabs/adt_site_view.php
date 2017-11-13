@@ -5,7 +5,7 @@
 				<!--adt_site_distribution_chart-->
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						ADT Site Distribution
+						ADT Versions Installed
 					</div>
 					<div class="chart-stage">
 						<div id="adt_version_distribution_chart"></div>
@@ -57,12 +57,12 @@
 				<div class="col-sm-8">
 				<div class="chart-wrapper">
 					<div class="chart-title">
-						Sites with Auto Backup <span class="backup_sites"></span>/<span class="total_sites"></span>
+						ADT Sites Overview <span class="backup_sites"></span>/<span class="total_sites"></span>
 					</div>
 
 					<div class="chart-notes">
 						<div id="adt_sites_overview_chart"></div>
-						<table class="table adt_sites_overview">
+						<table class="table adt_sites_overview">	
 							<thead>
 								<th>#</th>
 								<th></th>

@@ -202,7 +202,7 @@ $config['adt_site_distribution_chart_has_drilldown'] = FALSE;
 $config['adt_site_distribution_chart_xaxis_title'] = 'Sites';
 $config['adt_site_distribution_chart_view_name'] = 'dsh_site';
 $config['adt_site_distribution_chart_filters'] = array('partner', 'facility', 'internet', 'backup');
-$config['adt_site_distribution_chart_filters_default'] = array();
+$config['adt_site_distribution_chart_filters_default'] = array('category'=>'central');
 
 /*adt_site_distribution_table*/
 $config['adt_site_distribution_table_chartview'] = 'charts/table_view';
